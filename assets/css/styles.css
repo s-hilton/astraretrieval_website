@@ -389,6 +389,23 @@ strong { font-weight: 600; color: var(--text); }
 .email-btn svg { width: 22px; height: 22px; flex-shrink: 0; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .copy-status { min-height: 1.5em; margin-top: 12px; color: var(--mint); font-size: 0.9rem; }
 
+/* Footnotes & sources ------------------------------------------------------ */
+.fn { font-size: 0.68em; line-height: 0; margin-left: 2px; font-family: var(--body); font-weight: 600; }
+.fn a { color: var(--mint); padding: 0 2px; border-radius: 4px; }
+.fn a:hover { background: rgba(126, 224, 178, 0.15); }
+.stat-num small { font-size: 0.45em; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; margin-right: 4px; vertical-align: middle; }
+
+.sources { padding: 64px 0 56px; border-top: 1px solid var(--border); }
+.sources h2 { font-size: 1rem; letter-spacing: 0.14em; color: var(--muted); margin-bottom: 20px; }
+.source-list { margin: 0; padding-left: 1.6em; display: grid; gap: 8px; color: var(--muted); font-size: 0.82rem; line-height: 1.55; columns: 1; }
+.source-list li { padding-left: 4px; scroll-margin-top: 96px; overflow-wrap: anywhere; }
+.source-list li::marker { color: var(--mint); font-weight: 600; }
+.source-list li:target { color: var(--text); }
+.source-list a { color: #c8cee0; text-decoration: underline; text-decoration-color: var(--border-strong); text-underline-offset: 2px; }
+.source-list a:hover { color: var(--text); }
+.source-list a.back { text-decoration: none; color: var(--mint); margin-left: 4px; }
+[id^="ref-"] { scroll-margin-top: 120px; }
+
 /* Footer ------------------------------------------------------------------- */
 .site-footer { border-top: 1px solid var(--border); padding: 44px 0; }
 .footer-inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px 32px; }
