@@ -40,6 +40,81 @@
     targets.forEach(function (el) { el.classList.add("reveal"); io.observe(el); });
   }
 
+  var finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+  // Count-up statistics: numbers roll up from 0 the first time they scroll into view
+  var counts = document.querySelectorAll(".count[data-to]");
+  if (counts.length && "IntersectionObserver" in window && !reduceMotion) {
+    var fmt = function (n) { return Math.round(n).toLocaleString("en-US"); };
+    var countIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        countIO.unobserve(entry.target);
+        var el = entry.target, to = +el.dataset.to, start = null, dur = 1600;
+        function tick(now) {
+          if (start === null) start = now;
+          var k = Math.min(1, (now - start) / dur);
+          el.textContent = fmt(to * (1 - Math.pow(1 - k, 3)));   // ease-out
+          if (k < 1) requestAnimationFrame(tick);
+        }
+        el.textContent = "0";
+        requestAnimationFrame(tick);
+      });
+    }, { threshold: 0.6 });
+    counts.forEach(function (el) { countIO.observe(el); });
+  }
+
+  // Tilt cards: asteroid-type cards lean toward the cursor (mouse/trackpad only)
+  if (finePointer && !reduceMotion) {
+    document.querySelectorAll(".type-card").forEach(function (card) {
+      var max = 7;   // degrees
+      card.addEventListener("mousemove", function (e) {
+        var r = card.getBoundingClientRect();
+        var x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+        card.classList.remove("tilt-reset");
+        card.classList.add("tilting");
+        card.style.transform = "perspective(900px) rotateX(" + ((0.5 - y) * max).toFixed(2) + "deg) rotateY(" + ((x - 0.5) * max).toFixed(2) + "deg) translateZ(0)";
+        card.style.setProperty("--gx", (x * 100).toFixed(1) + "%");
+        card.style.setProperty("--gy", (y * 100).toFixed(1) + "%");
+      });
+      card.addEventListener("mouseleave", function () {
+        card.classList.remove("tilting");
+        card.classList.add("tilt-reset");
+        card.style.transform = "";
+      });
+    });
+  }
+
+  // Hero photo drift: slower-than-page scroll (parallax) plus a gentle lean toward the cursor
+  var heroPhoto = document.querySelector(".hero-photo");
+  var hero = document.querySelector(".hero");
+  if (heroPhoto && hero && !reduceMotion) {
+    var heroVisible = true, mx = 0, my = 0, tx = 0, ty = 0, running = false;
+    function heroFrame() {
+      mx += (tx - mx) * 0.06;
+      my += (ty - my) * 0.06;
+      var y = Math.min(window.scrollY, hero.offsetHeight) * 0.35;
+      heroPhoto.style.transform = "translate3d(" + mx.toFixed(2) + "px," + (y + my).toFixed(2) + "px,0)";
+      var settling = Math.abs(tx - mx) > 0.1 || Math.abs(ty - my) > 0.1;
+      running = heroVisible && (settling || window.scrollY < hero.offsetHeight);
+      if (running) requestAnimationFrame(heroFrame);
+    }
+    function wake() { if (!running && heroVisible) { running = true; requestAnimationFrame(heroFrame); } }
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (es) { heroVisible = es[0].isIntersecting; wake(); }).observe(hero);
+    }
+    window.addEventListener("scroll", wake, { passive: true });
+    if (finePointer) {
+      hero.addEventListener("mousemove", function (e) {
+        tx = (e.clientX / window.innerWidth - 0.5) * -28;   // up to ±14px, opposite the cursor
+        ty = (e.clientY / window.innerHeight - 0.5) * -20;  // up to ±10px
+        wake();
+      });
+      hero.addEventListener("mouseleave", function () { tx = 0; ty = 0; wake(); });
+    }
+    wake();
+  }
+
   // Copy email to clipboard
   var copyBtn = document.getElementById("copy-email");
   var status = document.getElementById("copy-status");
