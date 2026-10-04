@@ -296,34 +296,42 @@
           <h2>Five phases to operational scale</h2>
           <p class="muted">Build &middot; Demonstrate &middot; Operate &middot; Scale</p>
         </header>
-        <ol class="roadmap">
-          <li class="road-step current" style="--c: var(--blue)">
-            <span class="road-num">01</span>
-            <h3>Design &amp; simulation</h3>
-            <p>Complete the mission architecture.</p>
-            <span class="badge">We are here</span>
-          </li>
-          <li class="road-step" style="--c: var(--green)">
-            <span class="road-num">02</span>
-            <h3>Prototype &amp; testing</h3>
-            <p>Validate the spacecraft in orbit.</p>
-          </li>
-          <li class="road-step" style="--c: var(--gold)">
-            <span class="road-num">03</span>
-            <h3>Demonstration mission</h3>
-            <p>Retrieve our first asteroid.</p>
-          </li>
-          <li class="road-step" style="--c: var(--purple)">
-            <span class="road-num">04</span>
-            <h3>Operational mission</h3>
-            <p>Begin commercial deliveries.</p>
-          </li>
-          <li class="road-step" style="--c: var(--red)">
-            <span class="road-num">05</span>
-            <h3>Scale</h3>
-            <p>Expand to a multi-spacecraft fleet.</p>
-          </li>
-        </ol>
+        <!--
+          --progress = how far along the roadmap we are, counted in phases from Phase 01.
+            0.62 = most of the way through Phase 01; 1.0 = reached Phase 02; 1.5 = halfway through Phase 02 ...
+          Move the "current" class and the "We are here" badge to the phase you're in.
+        -->
+        <div class="rm" style="--progress: 0.62">
+          <div class="rm-track" aria-hidden="true"><span class="rm-planned"></span><span class="rm-done"></span><span class="rm-comet"></span></div>
+          <ol class="rm-steps">
+            <li class="rm-step current" style="--c: var(--blue)">
+              <div class="rm-node">01</div>
+              <h3>Design &amp; simulation</h3>
+              <p>Complete the mission architecture.</p>
+              <span class="rm-badge">We are here</span>
+            </li>
+            <li class="rm-step" style="--c: var(--green)">
+              <div class="rm-node">02</div>
+              <h3>Prototype &amp; testing</h3>
+              <p>Validate the spacecraft in orbit.</p>
+            </li>
+            <li class="rm-step" style="--c: var(--gold)">
+              <div class="rm-node">03</div>
+              <h3>Demonstration mission</h3>
+              <p>Retrieve our first asteroid.</p>
+            </li>
+            <li class="rm-step" style="--c: var(--purple)">
+              <div class="rm-node">04</div>
+              <h3>Operational mission</h3>
+              <p>Begin commercial deliveries.</p>
+            </li>
+            <li class="rm-step" style="--c: var(--red)">
+              <div class="rm-node">05</div>
+              <h3>Scale</h3>
+              <p>Expand to a multi-spacecraft fleet.</p>
+            </li>
+          </ol>
+        </div>
       </div>
     </section>
 

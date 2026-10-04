@@ -27,7 +27,7 @@
   document.addEventListener("keydown", function (e) { if (e.key === "Escape") setMenu(false); });
 
   // Fade sections in as they scroll into view
-  var targets = document.querySelectorAll(".section-head, .panel, .stat, .road-step, .flow, .contact-inner > *");
+  var targets = document.querySelectorAll(".section-head, .panel, .stat, .flow, .contact-inner > *");
   if ("IntersectionObserver" in window && !reduceMotion) {
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
@@ -38,6 +38,21 @@
       });
     }, { rootMargin: "0px 0px -60px 0px" });
     targets.forEach(function (el) { el.classList.add("reveal"); io.observe(el); });
+  }
+
+  // Roadmap progress line: route draws, progress fills to "We are here", marker pops (once, on first view)
+  var roadmap = document.querySelector(".rm");
+  if (roadmap && "IntersectionObserver" in window && !reduceMotion) {
+    // Jump straight to the hidden start state (no transition), so nothing lingers if the visitor arrives fast
+    roadmap.classList.add("rm-ready", "rm-init");
+    void roadmap.offsetWidth;
+    roadmap.classList.remove("rm-init");
+    var rmIO = new IntersectionObserver(function (entries) {
+      if (!entries[0].isIntersecting) return;
+      roadmap.classList.add("play");
+      rmIO.disconnect();
+    }, { threshold: 0.35 });
+    rmIO.observe(roadmap);
   }
 
   var finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;

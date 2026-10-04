@@ -309,43 +309,83 @@ strong { font-weight: 600; color: var(--text); }
 .why h3 { color: var(--c); font-size: 1.05rem; }
 
 /* Roadmap ------------------------------------------------------------------ */
-.roadmap {
-  list-style: none; padding: 0; margin: 0;
-  display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px;
-  counter-reset: road;
+/* Five equal columns (no gap) so node centres sit at 10%, 30%, 50%, 70%, 90% of the row.
+   The track runs 10%->90%, so each phase is 25% of it and --progress (in phases) maps directly. */
+.rm { position: relative; --progress: 0; }
+.rm-track { position: absolute; left: 10%; right: 10%; top: 35px; height: 4px; }
+.rm-planned, .rm-done { position: absolute; left: 0; top: 0; height: 100%; border-radius: 4px; transform-origin: left center; }
+.rm-planned { width: 100%; background: repeating-linear-gradient(90deg, rgba(170, 180, 210, 0.45) 0 8px, transparent 8px 16px); }
+.rm-done {
+  width: calc(var(--progress) * 25%);
+  background: linear-gradient(90deg, var(--blue), var(--mint));
+  box-shadow: 0 0 14px rgba(126, 224, 178, 0.7);
 }
-.road-step {
-  position: relative; text-align: center;
-  padding: 28px 18px 30px; border: 1px solid var(--border); border-radius: var(--radius);
-  background: var(--panel);
+.rm-comet {
+  position: absolute; top: 50%; left: calc(var(--progress) * 25%);
+  width: 14px; height: 14px; margin: -7px 0 0 -7px; border-radius: 50%;
+  background: var(--mint); box-shadow: 0 0 18px var(--mint);
+  animation: rm-pulse 2s ease-out infinite;
 }
-.road-step:not(:last-child)::after {
-  content: ""; position: absolute; top: 50%; right: -14px; z-index: 1;
-  border-top: 10px solid transparent; border-bottom: 10px solid transparent; border-left: 10px solid var(--text);
-  transform: translateY(-50%);
+@keyframes rm-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(126, 224, 178, 0.55), 0 0 18px var(--mint); }
+  100% { box-shadow: 0 0 0 16px rgba(126, 224, 178, 0), 0 0 18px var(--mint); }
 }
-.road-num {
-  display: inline-block; font-family: var(--display); font-size: 1.5rem; color: var(--c);
-  padding-bottom: 6px; border-bottom: 2px solid var(--c); margin-bottom: 16px;
+.rm-steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, 1fr); position: relative; }
+.rm-step { text-align: center; padding: 0 10px; }
+.rm-node {
+  width: 74px; height: 74px; margin: 0 auto 18px; border-radius: 50%;
+  display: grid; place-items: center; position: relative; z-index: 1;
+  font-family: var(--display); font-size: 1.2rem; color: var(--c);
+  background: #0d1326; border: 2px solid rgba(170, 180, 210, 0.25);
 }
-.road-step h3 { font-family: var(--body); font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.92rem; }
-.road-step p { color: var(--muted); font-size: 0.92rem; }
-.road-step.current { border-color: var(--c); box-shadow: 0 0 0 1px var(--c), 0 0 40px color-mix(in srgb, var(--c) 30%, transparent); }
-.badge {
-  position: absolute; top: -12px; left: 50%; transform: translateX(-50%); white-space: nowrap;
-  background: var(--c); color: #07101b; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em;
-  text-transform: uppercase; padding: 4px 10px; border-radius: 999px;
+.rm-step h3 { font-family: var(--body); font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.86rem; margin: 0 0 6px; }
+.rm-step p { color: var(--muted); font-size: 0.88rem; margin: 0; }
+.rm-step.current .rm-node { border-color: var(--c); box-shadow: 0 0 0 6px color-mix(in srgb, var(--c) 14%, transparent), 0 0 30px color-mix(in srgb, var(--c) 45%, transparent); }
+.rm-badge {
+  display: inline-block; margin-top: 12px; padding: 4px 10px; border-radius: 999px;
+  background: var(--mint); color: #07101b; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
 }
-@media (max-width: 1000px) {
-  .roadmap { grid-template-columns: 1fr; gap: 26px; max-width: 520px; margin: 0 auto; }
-  .road-step { text-align: left; display: grid; grid-template-columns: 64px 1fr; column-gap: 16px; align-items: start; padding: 22px 22px; }
-  .road-num { grid-row: span 2; margin: 0; font-size: 1.3rem; }
-  .road-step h3 { margin-bottom: 4px; }
-  .road-step:not(:last-child)::after {
-    top: auto; bottom: -20px; right: auto; left: 50%; transform: translateX(-50%);
-    border-left: 10px solid transparent; border-right: 10px solid transparent; border-top: 10px solid var(--text); border-bottom: 0;
-  }
-  .badge { left: auto; right: 16px; transform: none; }
+
+/* Entrance animation: JS adds .rm-ready (hidden start state), then .play when the roadmap scrolls into view.
+   Without JS, or with reduced motion, the finished state above is shown as-is. */
+.rm.rm-ready .rm-planned { transform: scaleX(0); transition: transform 1.4s cubic-bezier(.4, 0, .2, 1); }
+.rm.rm-ready .rm-done { transform: scaleX(0); transition: transform 1.3s cubic-bezier(.2, .7, .2, 1) 1.2s; }
+.rm.rm-ready .rm-comet { opacity: 0; transform: scale(0.3); animation: none; transition: opacity 0.3s 2.4s, transform 0.4s cubic-bezier(.3, 1.6, .5, 1) 2.4s; }
+.rm.rm-ready .rm-node { opacity: 0; transform: scale(0.6); transition: transform 0.5s cubic-bezier(.3, 1.5, .5, 1), opacity 0.4s, border-color 0.4s, box-shadow 0.4s; }
+.rm.rm-ready .rm-step.current .rm-node { border-color: rgba(170, 180, 210, 0.25); box-shadow: none; }
+.rm.rm-ready .rm-step h3, .rm.rm-ready .rm-step p { opacity: 0; transform: translateY(8px); transition: opacity 0.5s, transform 0.5s; }
+.rm.rm-ready .rm-badge { opacity: 0; transform: translateY(6px) scale(0.9); transition: opacity 0.45s, transform 0.45s cubic-bezier(.3, 1.5, .5, 1); }
+
+.rm.rm-init, .rm.rm-init * { transition: none !important; }
+
+.rm.rm-ready.play .rm-planned, .rm.rm-ready.play .rm-done { transform: none; }
+.rm.rm-ready.play .rm-comet { opacity: 1; transform: none; animation: rm-pulse 2s ease-out 2.8s infinite; }
+.rm.rm-ready.play .rm-node, .rm.rm-ready.play .rm-step h3, .rm.rm-ready.play .rm-step p { opacity: 1; transform: none; }
+.rm.rm-ready.play .rm-step:nth-child(1) > * { transition-delay: 0.15s; }
+.rm.rm-ready.play .rm-step:nth-child(2) > * { transition-delay: 0.45s; }
+.rm.rm-ready.play .rm-step:nth-child(3) > * { transition-delay: 0.75s; }
+.rm.rm-ready.play .rm-step:nth-child(4) > * { transition-delay: 1.05s; }
+.rm.rm-ready.play .rm-step:nth-child(5) > * { transition-delay: 1.35s; }
+/* current phase: circle fades in with its column, then lights up as the progress line arrives */
+.rm.rm-ready.play .rm-step.current .rm-node {
+  border-color: var(--c);
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--c) 14%, transparent), 0 0 30px color-mix(in srgb, var(--c) 45%, transparent);
+  transition-delay: 0.15s, 0.15s, 1.3s, 1.3s;
+}
+.rm.rm-ready.play .rm-step.current .rm-badge { opacity: 1; transform: none; transition-delay: 2.7s; }
+
+/* Phones: vertical track down the left */
+@media (max-width: 760px) {
+  .rm-steps { grid-template-columns: 1fr; gap: 26px; }
+  .rm-step { display: grid; grid-template-columns: 74px 1fr; column-gap: 16px; text-align: left; align-items: center; padding: 0; }
+  .rm-node { margin: 0; grid-row: span 3; }
+  .rm-badge { justify-self: start; margin-top: 8px; }
+  .rm-track { left: 35px; right: auto; top: 37px; bottom: 37px; width: 4px; height: auto; }
+  .rm-planned { width: 100%; height: 100%; transform-origin: top center; background: repeating-linear-gradient(180deg, rgba(170, 180, 210, 0.45) 0 8px, transparent 8px 16px); }
+  .rm-done { width: 100%; height: calc(var(--progress) * 25%); transform-origin: top center; background: linear-gradient(180deg, var(--blue), var(--mint)); }
+  .rm-comet { left: 50%; top: calc(var(--progress) * 25%); }
+  .rm.rm-ready .rm-planned, .rm.rm-ready .rm-done { transform: scaleY(0); }
+  .rm.rm-ready.play .rm-planned, .rm.rm-ready.play .rm-done { transform: none; }
 }
 
 /* Mission ------------------------------------------------------------------ */
@@ -434,6 +474,6 @@ strong { font-weight: 600; color: var(--text); }
 .reveal.visible { opacity: 1; transform: none; }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-photo::before, .scroll-cue span { animation: none; }
+  .hero-photo::before, .scroll-cue span, .rm-comet { animation: none; }
   .reveal, .reveal .bar i { opacity: 1; transform: none; transition: none; }
 }

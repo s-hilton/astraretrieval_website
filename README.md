@@ -51,3 +51,11 @@ All copy lives in `index.html`, one commented block per section
 (Hero, Focus, How it works, Asteroids, Critical minerals, Markets, Why now,
 Roadmap, Mission, Team, Contact). The contact email appears in the Contact
 section in two places (the `mailto:` link and the copy button's `data-email`).
+
+### Updating roadmap progress
+
+In the Roadmap section of `index.html`, change `--progress` on the `<div class="rm">`
+element. It's measured in phases from Phase 01: `0.62` = most of the way through
+Phase 01, `1` = at Phase 02, `1.5` = halfway through Phase 02, and so on. When you
+move into a new phase, also move `class="current"` and the
+`<span class="rm-badge">We are here</span>` to that phase's `<li>`.
