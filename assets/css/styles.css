@@ -310,18 +310,20 @@ strong { font-weight: 600; color: var(--text); }
 
 /* Roadmap ------------------------------------------------------------------ */
 /* Five equal columns (no gap) so node centres sit at 10%, 30%, 50%, 70%, 90% of the row.
-   The track runs 10%->90%, so each phase is 25% of it and --progress (in phases) maps directly. */
-.rm { position: relative; --progress: 0; }
+   The track runs 10%->90%, so the spacing between circles is 25% of it.
+   --phase (1-5) = current phase; --within (0-1) = how far along the visible gap to the next circle.
+   Circles are 74px across, so the visible gap starts 37px past a circle's centre and is (25% - 74px) long. */
+.rm { position: relative; --phase: 1; --within: 0; --at: calc((var(--phase) - 1) * 25% + 37px + var(--within) * (25% - 74px)); }
 .rm-track { position: absolute; left: 10%; right: 10%; top: 35px; height: 4px; }
 .rm-planned, .rm-done { position: absolute; left: 0; top: 0; height: 100%; border-radius: 4px; transform-origin: left center; }
 .rm-planned { width: 100%; background: repeating-linear-gradient(90deg, rgba(170, 180, 210, 0.45) 0 8px, transparent 8px 16px); }
 .rm-done {
-  width: calc(var(--progress) * 25%);
+  width: var(--at);
   background: linear-gradient(90deg, var(--blue), var(--mint));
   box-shadow: 0 0 14px rgba(126, 224, 178, 0.7);
 }
 .rm-comet {
-  position: absolute; top: 50%; left: calc(var(--progress) * 25%);
+  position: absolute; top: 50%; left: var(--at);
   width: 14px; height: 14px; margin: -7px 0 0 -7px; border-radius: 50%;
   background: var(--mint); box-shadow: 0 0 18px var(--mint);
   animation: rm-pulse 2s ease-out infinite;
@@ -377,13 +379,14 @@ strong { font-weight: 600; color: var(--text); }
 /* Phones: vertical track down the left */
 @media (max-width: 760px) {
   .rm-steps { grid-template-columns: 1fr; gap: 26px; }
-  .rm-step { display: grid; grid-template-columns: 74px 1fr; column-gap: 16px; text-align: left; align-items: center; padding: 0; }
+  /* equal row heights keep the circles evenly spaced, so the 25% spacing maths still holds */
+  .rm-step { display: grid; grid-template-columns: 74px 1fr; column-gap: 16px; text-align: left; align-items: center; align-content: center; padding: 0; min-height: 108px; }
   .rm-node { margin: 0; grid-row: span 3; }
   .rm-badge { justify-self: start; margin-top: 8px; }
-  .rm-track { left: 35px; right: auto; top: 37px; bottom: 37px; width: 4px; height: auto; }
+  .rm-track { left: 35px; right: auto; top: 54px; bottom: 54px; width: 4px; height: auto; }
   .rm-planned { width: 100%; height: 100%; transform-origin: top center; background: repeating-linear-gradient(180deg, rgba(170, 180, 210, 0.45) 0 8px, transparent 8px 16px); }
-  .rm-done { width: 100%; height: calc(var(--progress) * 25%); transform-origin: top center; background: linear-gradient(180deg, var(--blue), var(--mint)); }
-  .rm-comet { left: 50%; top: calc(var(--progress) * 25%); }
+  .rm-done { width: 100%; height: var(--at); transform-origin: top center; background: linear-gradient(180deg, var(--blue), var(--mint)); }
+  .rm-comet { left: 50%; top: var(--at); }
   .rm.rm-ready .rm-planned, .rm.rm-ready .rm-done { transform: scaleY(0); }
   .rm.rm-ready.play .rm-planned, .rm.rm-ready.play .rm-done { transform: none; }
 }

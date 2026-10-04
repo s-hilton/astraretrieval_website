@@ -297,11 +297,12 @@
           <p class="muted">Build &middot; Demonstrate &middot; Operate &middot; Scale</p>
         </header>
         <!--
-          --progress = how far along the roadmap we are, counted in phases from Phase 01.
-            0.62 = most of the way through Phase 01; 1.0 = reached Phase 02; 1.5 = halfway through Phase 02 ...
-          Move the "current" class and the "We are here" badge to the phase you're in.
+          Roadmap progress:
+            --phase  = the phase you're in (1-5)
+            --within = how far along the line to the next phase (0 = just started, 0.25 = a quarter, 0.5 = halfway ...)
+          When you move into a new phase, also move class="current" and the "We are here" badge to that phase.
         -->
-        <div class="rm" style="--progress: 0.62">
+        <div class="rm" style="--phase: 1; --within: 0.25">
           <div class="rm-track" aria-hidden="true"><span class="rm-planned"></span><span class="rm-done"></span><span class="rm-comet"></span></div>
           <ol class="rm-steps">
             <li class="rm-step current" style="--c: var(--blue)">
