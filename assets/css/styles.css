@@ -421,7 +421,8 @@ strong { font-weight: 600; color: var(--text); }
 .person .tags li { --c: var(--muted); color: #d1d6e4; }
 
 /* Contact ------------------------------------------------------------------ */
-.contact { overflow: hidden; padding: 140px 0; }
+#team { padding-bottom: 40px; }
+.contact { overflow: hidden; padding: 70px 0 140px; }
 .contact-bg {
   position: absolute; inset: 0;
   background:
