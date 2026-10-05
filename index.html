@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Astra Retrieval — Asteroid Capture &amp; Cislunar Return</title>
+  <title>Astra Retrieval – Asteroid Capture &amp; Cislunar Return</title>
   <meta name="description" content="Astra Retrieval is building the logistics layer for asteroid mining: locating high-value asteroids, capturing them, and delivering them to cislunar space for mining and refining customers.">
   <meta name="theme-color" content="#0b1020">
 
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Astra Retrieval — Asteroid Capture &amp; Cislunar Return">
+  <meta property="og:title" content="Astra Retrieval – Asteroid Capture &amp; Cislunar Return">
   <meta property="og:description" content="We bring the asteroids to the miners. Astra Retrieval captures water- and metal-rich asteroids and delivers them to cislunar space.">
   <meta property="og:image" content="assets/img/og-image.jpg">
   <meta name="twitter:card" content="summary_large_image">
@@ -27,7 +27,7 @@
 
   <header class="site-header">
     <div class="container nav">
-      <a href="#top" class="brand" aria-label="Astra Retrieval — home">
+      <a href="#top" class="brand" aria-label="Astra Retrieval – home">
         <img src="assets/img/logo-wordmark.png" alt="Astra Retrieval" width="220" height="28">
       </a>
       <button class="nav-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Open menu">
@@ -228,7 +228,7 @@
         <div class="grid three">
           <article class="panel market" style="--c: var(--blue)">
             <img src="assets/img/asteroid-icon.png" alt="" class="market-icon" width="40" height="40">
-            <h3>In-orbit refuelling</h3>
+            <h3>In-orbit refueling</h3>
             <p class="muted">The space economy: propellant, water, and materials.</p>
             <ul class="dots">
               <li>Space agencies (NASA, ESA, JAXA)</li>
@@ -333,6 +333,7 @@
             </li>
           </ol>
         </div>
+        <p class="rm-follow"><a href="#follow">Follow our progress &rarr;</a></p>
       </div>
     </section>
 
@@ -410,6 +411,36 @@
           <button type="button" class="btn btn-outline" id="copy-email" data-email="Stephen.Hilton@astraretrieval.com">Copy email</button>
         </div>
         <p class="copy-status" id="copy-status" role="status"></p>
+
+        <!--
+          FOLLOW OUR PROGRESS
+          Sign-ups go to a Buttondown newsletter (see README → "Follow our progress").
+          Replace YOUR-BUTTONDOWN-USERNAME in the action URL below with your Buttondown username.
+          Until then, the form opens an email to you asking to be added to the list.
+        -->
+        <div class="panel follow" id="follow">
+          <div class="follow-copy">
+            <p class="kicker">Follow our progress</p>
+            <h3>Not ready to talk yet? Watch us build.</h3>
+            <p class="muted">Short, occasional updates when we hit a milestone &ndash; mission design, supplier agreements, our first hardware. No spam; unsubscribe anytime.</p>
+          </div>
+          <form class="follow-form" id="follow-form" method="post" novalidate
+                action="https://buttondown.com/api/emails/embed-subscribe/YOUR-BUTTONDOWN-USERNAME">
+            <label for="follow-email" class="sr-only">Email address</label>
+            <input id="follow-email" type="email" name="email" placeholder="you@company.com" autocomplete="email" required>
+            <label for="follow-tag" class="sr-only">I'm following as</label>
+            <select id="follow-tag" name="tag">
+              <option value="">I'm following as&hellip; (optional)</option>
+              <option value="investor">Investor</option>
+              <option value="partner">Partner or customer</option>
+              <option value="engineer">Engineer / future teammate</option>
+              <option value="curious">Just curious</option>
+            </select>
+            <input type="hidden" name="embed" value="1">
+            <button class="btn btn-primary" type="submit">Follow</button>
+            <p class="follow-status" id="follow-status" role="status" aria-live="polite"></p>
+          </form>
+        </div>
       </div>
     </section>
 

@@ -62,3 +62,23 @@ In the Roadmap section of `index.html`, edit the `style` on the `<div class="rm"
 
 When you move into a new phase, also move `class="current"` and the
 `<span class="rm-badge">We are here</span>` to that phase's `<li>`.
+
+### Follow our progress (email updates)
+
+The "Follow our progress" form in the Join us section signs people up for
+email updates through [Buttondown](https://buttondown.com) (free for up to
+100 subscribers; double opt-in by default).
+
+1. Create a Buttondown account and pick a username (e.g. `astraretrieval`).
+2. In `index.html`, search for `YOUR-BUTTONDOWN-USERNAME` and replace it with
+   that username.
+3. Commit and push. New subscribers appear in Buttondown under Subscribers,
+   tagged with what they picked in the "I'm following as…" menu
+   (investor, partner, engineer, curious).
+
+Until step 2 is done, the form still works: it opens an email to
+Stephen.Hilton@astraretrieval.com asking to be added, so no sign-ups are lost.
+
+To use a different service (Mailchimp, Kit, beehiiv…), swap the form's
+`action` URL for that service's embed/subscribe URL and make sure the email
+field's `name` matches what it expects.

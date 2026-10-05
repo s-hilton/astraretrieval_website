@@ -130,6 +130,60 @@
     wake();
   }
 
+  // Follow our progress: subscribe to updates (Buttondown), with an email fallback until it's configured
+  var followForm = document.getElementById("follow-form");
+  if (followForm) {
+    var followEmail = document.getElementById("follow-email");
+    var followTag = document.getElementById("follow-tag");
+    var followStatus = document.getElementById("follow-status");
+    var followBtn = followForm.querySelector("button[type=submit]");
+    var CONTACT = "Stephen.Hilton@astraretrieval.com";
+
+    followTag.addEventListener("change", function () { followTag.classList.toggle("chosen", !!followTag.value); });
+    followEmail.addEventListener("input", function () { followEmail.classList.remove("invalid"); });
+
+    function say(msg, isErr) {
+      followStatus.textContent = msg;
+      followStatus.classList.toggle("err", !!isErr);
+    }
+
+    followForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var email = followEmail.value.trim();
+      if (!email || !followEmail.checkValidity()) {
+        followEmail.classList.add("invalid");
+        say("Please enter a valid email address.", true);
+        followEmail.focus();
+        return;
+      }
+      var role = followTag.value ? followTag.options[followTag.selectedIndex].text : "";
+
+      // Not hooked up to a newsletter service yet: ask to be added by email instead
+      if (followForm.action.indexOf("YOUR-BUTTONDOWN-USERNAME") !== -1) {
+        var body = "Please add " + email + " to Astra Retrieval's progress updates." + (role ? "\n\nFollowing as: " + role : "");
+        window.location.href = "mailto:" + CONTACT + "?subject=" + encodeURIComponent("Follow Astra Retrieval's progress") + "&body=" + encodeURIComponent(body);
+        say("Opening your email app to finish signing up…");
+        return;
+      }
+
+      followBtn.disabled = true;
+      say("Signing you up…");
+      fetch(followForm.action, { method: "POST", mode: "no-cors", body: new URLSearchParams(new FormData(followForm)) })   // same encoding as a normal form post
+        .then(function () {
+          say("Thanks! Check your inbox to confirm your subscription.");
+          followForm.reset();
+          followTag.classList.remove("chosen");
+        })
+        .catch(function () {
+          // Network/blocked request: fall back to a normal form post in a new tab
+          followForm.setAttribute("target", "_blank");
+          followForm.submit();
+          say("Finish signing up in the new tab.");
+        })
+        .then(function () { followBtn.disabled = false; });
+    });
+  }
+
   // Copy email to clipboard
   var copyBtn = document.getElementById("copy-email");
   var status = document.getElementById("copy-status");
