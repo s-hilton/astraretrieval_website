@@ -26,33 +26,58 @@
   links.addEventListener("click", function (e) { if (e.target.closest("a")) setMenu(false); });
   document.addEventListener("keydown", function (e) { if (e.key === "Escape") setMenu(false); });
 
+  // whenVisible(el, cb): run cb once when el is on screen. Uses IntersectionObserver where it works,
+  // with a scroll/resize/load position check as a backup (some embedded previews never fire the observer).
+  var pending = [];
+  function onScreen(el, inset) {
+    var r = el.getBoundingClientRect(), h = window.innerHeight || document.documentElement.clientHeight;
+    return r.bottom > 0 && r.top < h - (inset || 0) && (r.width || r.height);
+  }
+  function checkPending() {
+    for (var i = pending.length - 1; i >= 0; i--) {
+      if (onScreen(pending[i].el, pending[i].inset)) { var p = pending.splice(i, 1)[0]; p.fire(); }
+    }
+  }
+  function whenVisible(el, cb, inset) {
+    var done = false, io;
+    function fire() { if (done) return; done = true; if (io) io.disconnect(); cb(el); }
+    pending.push({ el: el, inset: inset || 0, fire: fire });
+    if ("IntersectionObserver" in window) {
+      io = new IntersectionObserver(function (es) { if (es[0].isIntersecting) fire(); }, { rootMargin: "0px 0px -" + (inset || 0) + "px 0px" });
+      io.observe(el);
+    }
+  }
+  window.addEventListener("scroll", checkPending, { passive: true });
+  window.addEventListener("resize", checkPending);
+  window.addEventListener("load", checkPending);
+  setTimeout(checkPending, 300);
+
   // Fade sections in as they scroll into view
-  var targets = document.querySelectorAll(".section-head, .panel, .stat, .flow, .contact-inner > *");
-  if ("IntersectionObserver" in window && !reduceMotion) {
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
-          io.unobserve(entry.target);
-        }
-      });
-    }, { rootMargin: "0px 0px -60px 0px" });
-    targets.forEach(function (el) { el.classList.add("reveal"); io.observe(el); });
+  var targets = document.querySelectorAll(".section-head, .panel, .stat, .contact-inner > *");
+  if (!reduceMotion) {
+    targets.forEach(function (el) {
+      el.classList.add("reveal");
+      whenVisible(el, function () { el.classList.add("visible"); }, 60);
+    });
+  }
+
+  // Focus section: step icons draw themselves in sequence on first view
+  var iconSteps = document.getElementById("icon-steps");
+  if (iconSteps && !reduceMotion) {
+    iconSteps.classList.add("ready", "no-anim");
+    void iconSteps.offsetWidth;
+    iconSteps.classList.remove("no-anim");
+    whenVisible(iconSteps, function () { iconSteps.classList.add("play"); }, 80);
   }
 
   // Roadmap progress line: route draws, progress fills to "We are here", marker pops (once, on first view)
   var roadmap = document.querySelector(".rm");
-  if (roadmap && "IntersectionObserver" in window && !reduceMotion) {
+  if (roadmap && !reduceMotion) {
     // Jump straight to the hidden start state (no transition), so nothing lingers if the visitor arrives fast
     roadmap.classList.add("rm-ready", "rm-init");
     void roadmap.offsetWidth;
     roadmap.classList.remove("rm-init");
-    var rmIO = new IntersectionObserver(function (entries) {
-      if (!entries[0].isIntersecting) return;
-      roadmap.classList.add("play");
-      rmIO.disconnect();
-    }, { threshold: 0.35 });
-    rmIO.observe(roadmap);
+    whenVisible(roadmap, function () { roadmap.classList.add("play"); }, 120);
   }
 
   var finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;

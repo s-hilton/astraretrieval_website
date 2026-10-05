@@ -137,7 +137,8 @@ strong { font-weight: 600; color: var(--text); }
 
 /* Hero --------------------------------------------------------------------- */
 .hero {
-  position: relative; min-height: 100vh; min-height: 100svh;
+  /* full screen, but capped so embedded previews (very tall frames) don't stretch it */
+  position: relative; min-height: min(100vh, 1000px); min-height: min(100svh, 1000px);
   display: flex; align-items: center;
   padding: 120px 0 140px;
   overflow: hidden;
@@ -208,24 +209,43 @@ strong { font-weight: 600; color: var(--text); }
 @media (max-width: 520px) { .panel { padding: 24px 20px; } }
 
 /* Focus -------------------------------------------------------------------- */
-.focus { display: grid; grid-template-columns: 300px 1fr; gap: 56px; align-items: center; }
+.focus { display: grid; grid-template-columns: 320px 1fr; gap: 56px; align-items: center; }
 @media (max-width: 860px) { .focus { grid-template-columns: 1fr; gap: 40px; } }
-.flow { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; justify-items: center; text-align: center; }
-.flow li {
-  font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.92rem;
-  max-width: 240px; line-height: 1.35;
-}
-.flow li:not(:last-child)::after {
-  content: ""; display: block; margin: 14px auto;
-  width: 0; height: 0;
-  border-left: 26px solid transparent; border-right: 26px solid transparent; border-top: 30px solid var(--text);
-  box-shadow: none;
-  position: relative;
-}
 .focus-panel { border-color: var(--border-strong); border-radius: 36px; padding: 44px; }
 @media (max-width: 520px) { .focus-panel { padding: 30px 22px; border-radius: 26px; } }
 .focus-panel h2 { text-transform: none; letter-spacing: 0.01em; font-size: clamp(1.4rem, 3vw, 2.2rem); }
 .focus-panel p { font-size: 1.08rem; }
+
+/* Self-drawing icon steps (replaces the arrow list) ----------------------- */
+.icon-steps-wrap { width: 100%; max-width: 320px; margin: 0 auto; }
+.icon-steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 20px; position: relative; }
+.icon-steps::before {   /* connector through the icon centres */
+  content: ""; position: absolute; left: 41px; top: 41px; bottom: 41px; width: 1px;
+  background: rgba(255, 255, 255, 0.35); transform-origin: top;
+}
+.icon-steps li { display: flex; align-items: center; gap: 20px; position: relative; }
+.icon-steps .ico {
+  width: 82px; height: 82px; flex-shrink: 0; display: block; overflow: visible;
+  background: var(--bg); border: 1px solid rgba(255, 255, 255, 0.25); border-radius: 50%;
+  fill: none; stroke: #fff; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round;
+}
+.icon-steps .ico :not(use) { stroke-dasharray: 1; }
+.icon-steps .ico use { fill: #fff; stroke: none; transform-box: fill-box; transform-origin: center; }
+.icon-steps span { font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.9rem; line-height: 1.35; }
+
+/* entrance: JS adds .ready (hidden start) then .play on first view; without JS / reduced motion it's simply shown */
+.icon-steps.ready::before { transform: scaleY(0); }
+.icon-steps.ready .ico { border-color: transparent; }
+.icon-steps.ready .ico :not(use) { stroke-dashoffset: 1; }
+.icon-steps.ready .ico use { opacity: 0; transform: scale(0.55) rotate(-25deg); }
+.icon-steps.ready span { opacity: 0.25; transform: translateX(-6px); }
+.icon-steps.ready.play::before { transform: none; transition: transform 2.6s cubic-bezier(.4, 0, .2, 1) 0.2s; }
+.icon-steps.ready.play .ico { border-color: rgba(255, 255, 255, 0.25); transition: border-color 0.6s calc(var(--i) * 0.7s); }
+.icon-steps.ready.play .ico :not(use) { stroke-dashoffset: 0; transition: stroke-dashoffset 1s ease calc(0.15s + var(--i) * 0.7s); }
+.icon-steps.ready.play .ico use { opacity: 1; transform: none; transition: opacity 0.6s ease calc(0.3s + var(--i) * 0.7s), transform 0.8s cubic-bezier(.3, 1.4, .5, 1) calc(0.3s + var(--i) * 0.7s); }
+.icon-steps.ready.play span { opacity: 1; transform: none; transition: opacity 0.6s calc(0.5s + var(--i) * 0.7s), transform 0.6s calc(0.5s + var(--i) * 0.7s); }
+.icon-steps.no-anim::before, .icon-steps.no-anim *, .icon-steps.no-anim { transition: none !important; }
+
 
 /* Phases ------------------------------------------------------------------- */
 .phases { grid-template-columns: repeat(2, 1fr); }
