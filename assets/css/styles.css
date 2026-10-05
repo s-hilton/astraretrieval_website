@@ -229,19 +229,21 @@ strong { font-weight: 600; color: var(--text); }
   background: var(--bg); border: 1px solid rgba(255, 255, 255, 0.25); border-radius: 50%;
   fill: none; stroke: #fff; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round;
 }
-.icon-steps .ico :not(use) { stroke-dasharray: 1; }
+/* JS sets --len to each stroke's measured length so the dash maths is exact in every browser */
+.icon-steps.ready .ico :not(use) { stroke-dasharray: var(--len) calc(var(--len) + 10px); }
 .icon-steps .ico use { fill: #fff; stroke: none; transform-box: fill-box; transform-origin: center; }
 .icon-steps span { font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.9rem; line-height: 1.35; }
 
 /* entrance: JS adds .ready (hidden start) then .play on first view; without JS / reduced motion it's simply shown */
 .icon-steps.ready::before { transform: scaleY(0); }
 .icon-steps.ready .ico { border-color: transparent; }
-.icon-steps.ready .ico :not(use) { stroke-dashoffset: 1; }
+/* start fully off the path (no round-cap dots) and invisible until its own draw begins */
+.icon-steps.ready .ico :not(use) { stroke-dashoffset: calc(var(--len) + 6px); opacity: 0; }
 .icon-steps.ready .ico use { opacity: 0; transform: scale(0.55) rotate(-25deg); }
 .icon-steps.ready span { opacity: 0.25; transform: translateX(-6px); }
 .icon-steps.ready.play::before { transform: none; transition: transform 2.6s cubic-bezier(.4, 0, .2, 1) 0.2s; }
 .icon-steps.ready.play .ico { border-color: rgba(255, 255, 255, 0.25); transition: border-color 0.6s calc(var(--i) * 0.7s); }
-.icon-steps.ready.play .ico :not(use) { stroke-dashoffset: 0; transition: stroke-dashoffset 1s ease calc(0.15s + var(--i) * 0.7s); }
+.icon-steps.ready.play .ico :not(use) { stroke-dashoffset: 0; opacity: 1; transition: stroke-dashoffset 1s ease calc(0.15s + var(--i) * 0.7s), opacity 0s linear calc(0.15s + var(--i) * 0.7s); }
 .icon-steps.ready.play .ico use { opacity: 1; transform: none; transition: opacity 0.6s ease calc(0.3s + var(--i) * 0.7s), transform 0.8s cubic-bezier(.3, 1.4, .5, 1) calc(0.3s + var(--i) * 0.7s); }
 .icon-steps.ready.play span { opacity: 1; transform: none; transition: opacity 0.6s calc(0.5s + var(--i) * 0.7s), transform 0.6s calc(0.5s + var(--i) * 0.7s); }
 .icon-steps.no-anim::before, .icon-steps.no-anim *, .icon-steps.no-anim { transition: none !important; }

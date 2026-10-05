@@ -64,6 +64,13 @@
   // Focus section: step icons draw themselves in sequence on first view
   var iconSteps = document.getElementById("icon-steps");
   if (iconSteps && !reduceMotion) {
+    // measure every stroke so the draw-on effect works the same in all browsers
+    iconSteps.querySelectorAll(".ico :not(use)").forEach(function (shape) {
+      var len = 100;
+      try { len = Math.ceil(shape.getTotalLength()) + 1; } catch (e) {}
+      shape.removeAttribute("pathLength");
+      shape.style.setProperty("--len", len + "px");
+    });
     iconSteps.classList.add("ready", "no-anim");
     void iconSteps.offsetWidth;
     iconSteps.classList.remove("no-anim");
