@@ -179,7 +179,9 @@ strong { font-weight: 600; color: var(--text); }
 @keyframes cue { 0% { opacity: 0; transform: translateY(0); } 40% { opacity: 1; } 100% { opacity: 0; transform: translateY(12px); } }
 
 /* Sections ----------------------------------------------------------------- */
-.section { position: relative; padding: 110px 0; }
+/* Space between sections: ~160px on desktop, ~120px on phones (cards within a section stay 22px apart) */
+.section { position: relative; padding: 80px 0; }
+@media (max-width: 640px) { .section { padding: 60px 0; } }
 .section-stars {
   background:
     linear-gradient(180deg, var(--bg) 0%, rgba(11, 16, 32, 0.55) 18%, rgba(11, 16, 32, 0.55) 82%, var(--bg) 100%),
@@ -263,7 +265,8 @@ strong { font-weight: 600; color: var(--text); }
   border: 1px solid color-mix(in srgb, var(--c, var(--mint)) 40%, transparent);
 }
 
-.stats { margin-top: 22px; }
+/* Asteroids section: a little extra room between its three groups (type cards / stats / water) */
+.stats { margin-top: 40px; }
 .stat {
   border: 1px solid var(--border); border-radius: var(--radius); padding: 28px;
   background: var(--panel);
@@ -271,7 +274,7 @@ strong { font-weight: 600; color: var(--text); }
 .stat-num { display: block; font-family: var(--body); font-weight: 700; font-size: clamp(2.2rem, 4vw, 3rem); color: var(--c); line-height: 1.1; margin-bottom: 8px; }
 .stat-label { color: #c8cee0; }
 
-.water { margin-top: 22px; display: grid; grid-template-columns: 1.5fr 1fr; gap: 40px; align-items: center; }
+.water { margin-top: 40px; display: grid; grid-template-columns: 1.5fr 1fr; gap: 40px; align-items: center; }
 @media (max-width: 860px) { .water { grid-template-columns: 1fr; gap: 20px; } }
 
 .checks, .dots { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
@@ -392,7 +395,9 @@ strong { font-weight: 600; color: var(--text); }
 }
 
 /* Mission ------------------------------------------------------------------ */
-.mission { overflow: hidden; }
+/* Photo-backed banner keeps more room so the image can breathe */
+.mission { overflow: hidden; padding: 110px 0; }
+@media (max-width: 640px) { .mission { padding: 80px 0; } }
 .mission-bg {
   position: absolute; inset: 0;
   background:
@@ -423,6 +428,7 @@ strong { font-weight: 600; color: var(--text); }
 /* Contact ------------------------------------------------------------------ */
 #team { padding-bottom: 40px; }
 .contact { overflow: hidden; padding: 70px 0 140px; }
+@media (max-width: 640px) { .contact { padding: 60px 0 100px; } }
 .contact-bg {
   position: absolute; inset: 0;
   background:
