@@ -40,6 +40,7 @@
         <a href="#markets">Markets</a>
         <a href="#roadmap">Roadmap</a>
         <a href="#team">Team</a>
+        <a href="https://medium.com/astra-retrieval/newsletters/astra-retrieval-updates" class="btn btn-follow btn-sm" target="_blank" rel="noopener">Follow</a>
         <a href="#contact" class="btn btn-outline btn-sm">Contact</a>
       </nav>
     </div>
@@ -457,32 +458,26 @@
 
         <!--
           FOLLOW OUR PROGRESS
-          Sign-ups go to a Buttondown newsletter (see README → "Follow our progress").
-          Replace YOUR-BUTTONDOWN-USERNAME in the action URL below with your Buttondown username.
-          Until then, the form opens an email to you asking to be added to the list.
+          Links to the Astra Retrieval Updates newsletter on Medium (subscribe) and the
+          Medium publication (past updates). Same newsletter link as the "Follow" button in the top bar.
         -->
         <div class="panel follow" id="follow">
           <div class="follow-copy">
             <p class="kicker">Follow our progress</p>
             <h3>Not ready to talk yet? Watch us build.</h3>
-            <p class="muted">Short, occasional updates when we hit a milestone &ndash; mission design, supplier agreements, our first hardware. No spam; unsubscribe anytime.</p>
+            <p class="muted">Short, occasional updates on Medium when we hit a milestone &ndash; mission design, supplier agreements, our first hardware.</p>
           </div>
-          <form class="follow-form" id="follow-form" method="post" novalidate
-                action="https://buttondown.com/api/emails/embed-subscribe/YOUR-BUTTONDOWN-USERNAME">
-            <label for="follow-email" class="sr-only">Email address</label>
-            <input id="follow-email" type="email" name="email" placeholder="you@company.com" autocomplete="email" required>
-            <label for="follow-tag" class="sr-only">I'm following as</label>
-            <select id="follow-tag" name="tag">
-              <option value="">I'm following as&hellip; (optional)</option>
-              <option value="investor">Investor</option>
-              <option value="partner">Partner or customer</option>
-              <option value="engineer">Engineer / future teammate</option>
-              <option value="curious">Just curious</option>
-            </select>
-            <input type="hidden" name="embed" value="1">
-            <button class="btn btn-primary" type="submit">Follow</button>
-            <p class="follow-status" id="follow-status" role="status" aria-live="polite"></p>
-          </form>
+          <div class="follow-actions">
+            <a class="btn btn-primary" href="https://medium.com/astra-retrieval/newsletters/astra-retrieval-updates" target="_blank" rel="noopener">
+              Subscribe to updates
+              <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3h7v7M13 3 4 12"/></svg>
+            </a>
+            <a class="btn btn-outline" href="https://medium.com/astra-retrieval" target="_blank" rel="noopener">
+              Read past updates
+              <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3h7v7M13 3 4 12"/></svg>
+            </a>
+            <p class="follow-note">Opens on Medium &middot; free</p>
+          </div>
         </div>
       </div>
     </section>
