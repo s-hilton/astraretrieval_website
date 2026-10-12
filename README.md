@@ -1,34 +1,45 @@
 # Astra Retrieval — website
 
 Information site for **Astra Retrieval**: asteroid capture and cislunar return.
-It explains what the company is building and lets people reach out by email.
+It explains the three products (capture spacecraft, autonomous deep-space flight
+software, and a private deep space network), the mission, the roadmap, and the team,
+and lets people reach out by email.
 
 It's a static site — plain HTML, CSS, and JavaScript with no build step.
 
 ## Structure
 
 ```
-index.html              The whole site (single page)
+index.html              The whole site: six pages (Home, Platform, Mission, Roadmap, Company, Contact)
 404.html                Not-found page
 favicon.ico
-assets/css/styles.css   Styles (colors/fonts are CSS variables at the top)
-assets/js/main.js       Mobile menu, header, scroll reveal, copy-email button
-assets/img/             Logos, favicon, and background photos
+assets/css/styles.css   Styles (colors and fonts are CSS variables in :root at the top)
+assets/js/main.js       Page routing, mobile menu, copy-email button, and scroll animations
+assets/img/             Logo, favicon, and background photos
 ```
 
-Images in `assets/img/` come from the company pitch deck and logo files:
+### How the pages work
+
+Each page is a `<section data-view="…">` inside `index.html`. The URL hash picks the
+page (`/#platform`, `/#roadmap`, …); any other hash opens the page containing the
+element with that id (e.g. `/#network` opens Platform and scrolls to the network
+section). Unknown hashes fall back to Home.
+
+### Images
 
 | File | Use |
 | --- | --- |
 | `logo-wordmark.png` | Header / footer logo (white, transparent) |
-| `logo-mark.png` | "A ◆ R" monogram (white, transparent) |
-| `asteroid-icon.png` | Asteroid glyph used as an icon |
 | `favicon.png`, `apple-touch-icon.png`, `/favicon.ico` | Browser and home-screen icons |
 | `hero-asteroid.jpg` | Hero background |
-| `asteroid-milkyway.jpg` | Mission section background |
-| `starfield.jpg` | Section background |
-| `asteroid-dark.jpg` | Contact section background |
+| `asteroid-milkyway.jpg` | "Join us" banner background |
 | `og-image.jpg` | Link preview image for social sharing |
+
+### Animations
+
+Animations play once, when they come on screen (not on page load), and are turned
+off for visitors who prefer reduced motion. Elements with `.count[data-to]` count up
+to their value.
 
 ## Run locally
 
@@ -47,28 +58,21 @@ and point the domain's DNS at GitHub Pages.
 
 ## Editing content
 
-All copy lives in `index.html`, one commented block per section
-(Hero, Focus, How it works, Asteroids, Critical minerals, Markets, Why now,
-Roadmap, Mission, Team, Contact). The contact email appears in the Contact
-section in two places (the `mailto:` link and the copy button's `data-email`).
+All copy lives in `index.html`, grouped by page (`data-view="home"`, `"platform"`, …).
+The contact email is in the Contact page.
 
 ### Updating roadmap progress
 
-In the Roadmap section of `index.html`, edit the `style` on the `<div class="rm">` element:
-
-- `--phase` is the phase you're in (1–5).
-- `--within` is how far the glowing line extends toward the next phase: `0` = just started,
-  `0.25` = a quarter of the way, `0.5` = halfway, and so on.
-
-When you move into a new phase, also move `class="current"` and the
-`<span class="rm-badge">We are here</span>` to that phase's `<li>`.
+The current phase is marked in three places in `index.html` (search for `We are here`):
+the roadmap strip on Home, the roadmap line on Roadmap, and the phase cards on Roadmap.
+Move the `now` class and the `<span class="chip now">We are here</span>` to the new
+phase in each, and move `class="now"` on the "By product" table header (`<th>`) and its
+column cells. The status strip under the header also names the current phase.
 
 ### Follow our progress (newsletter)
 
 Updates are published on Medium. The "Follow" button in the top bar and the
-"Subscribe to updates" button in the Join us section link to the newsletter:
+"Follow our progress" / "Subscribe to updates" buttons link to the newsletter:
 https://medium.com/astra-retrieval/newsletters/astra-retrieval-updates
 
-"Read past updates" links to the publication: https://medium.com/astra-retrieval
-
-To change either link, search `index.html` for `medium.com`.
+To change the link, search `index.html` for `medium.com`.

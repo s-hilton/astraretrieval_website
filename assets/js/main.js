@@ -1,182 +1,220 @@
 (function () {
-  "use strict";
-
-  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  // Footer year
-  var yearEl = document.getElementById("year");
-  if (yearEl) yearEl.textContent = new Date().getFullYear();
-
-  // Solid header once the page scrolls
-  var header = document.querySelector(".site-header");
-  function onScroll() { header.classList.toggle("scrolled", window.scrollY > 24); }
-  window.addEventListener("scroll", onScroll, { passive: true });
-  onScroll();
-
-  // Mobile menu
-  var toggle = document.querySelector(".nav-toggle");
-  var links = document.getElementById("nav-links");
-  function setMenu(open) {
-    links.classList.toggle("open", open);
-    header.classList.toggle("menu-open", open);
-    toggle.setAttribute("aria-expanded", String(open));
-    toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+  var views = [].slice.call(document.querySelectorAll("[data-view]"));
+  var navLinks = [].slice.call(document.querySelectorAll(".nav a"));
+  var nav = document.getElementById("nav"), menuBtn = document.getElementById("menu-btn");
+  function route() {
+    var id = (location.hash || "#home").slice(1);
+    var view = document.querySelector('[data-view="' + id.replace(/[^\w-]/g, "") + '"]');
+    var target = view ? null : document.getElementById(id);
+    if (!view && target) view = target.closest("[data-view]");
+    if (!view) { view = views[0]; target = null; }
+    views.forEach(function (v) { v.hidden = v !== view; });
+    navLinks.forEach(function (a) { if (a.getAttribute("href") === "#" + view.dataset.view) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current"); });
+    nav.classList.remove("open"); menuBtn.setAttribute("aria-expanded", "false");
+    if (target) target.scrollIntoView(); else window.scrollTo(0, 0);
   }
-  toggle.addEventListener("click", function () { setMenu(!links.classList.contains("open")); });
-  links.addEventListener("click", function (e) { if (e.target.closest("a")) setMenu(false); });
-  document.addEventListener("keydown", function (e) { if (e.key === "Escape") setMenu(false); });
+  window.addEventListener("hashchange", route);
+  route();
+  menuBtn.addEventListener("click", function () { var o = nav.classList.toggle("open"); menuBtn.setAttribute("aria-expanded", String(o)); });
+  var copy = document.getElementById("copy"), out = document.getElementById("copied"), addr = document.getElementById("addr");
+  copy.addEventListener("click", function () {
+    function fallback() { var r = document.createRange(); r.selectNodeContents(addr); var s = getSelection(); s.removeAllRanges(); s.addRange(r); out.textContent = "Selected. Press Ctrl+C (or ⌘C) to copy."; }
+    try { navigator.clipboard.writeText(addr.textContent).then(function () { out.textContent = "Copied to clipboard."; }, fallback); } catch (e) { fallback(); }
+  });
+})();
 
-  // whenVisible(el, cb): run cb once when el is on screen. Uses IntersectionObserver where it works,
-  // with a scroll/resize/load position check as a backup (some embedded previews never fire the observer).
-  var pending = [];
-  function onScreen(el, inset) {
-    var r = el.getBoundingClientRect(), h = window.innerHeight || document.documentElement.clientHeight;
-    return r.bottom > 0 && r.top < h - (inset || 0) && (r.width || r.height);
+
+/* ---------------- appear: fire once when an element is actually on the visitor's screen ----------------
+   IntersectionObserver measures against the real screen even when this page sits inside a tall frame,
+   so nothing plays early. A scroll check covers browsers without it. Hidden pages never fire until shown. */
+(function () {
+  var fallback = [];
+  function rectVisible(el, frac) {
+    var r = el.getBoundingClientRect(), h = innerHeight || document.documentElement.clientHeight;
+    return (r.width || r.height) && r.bottom > 0 && r.top < h * (1 - frac);
   }
-  function checkPending() {
-    for (var i = pending.length - 1; i >= 0; i--) {
-      if (onScreen(pending[i].el, pending[i].inset)) { var p = pending.splice(i, 1)[0]; p.fire(); }
-    }
-  }
-  function whenVisible(el, cb, inset) {
-    var done = false, io;
-    function fire() { if (done) return; done = true; if (io) io.disconnect(); cb(el); }
-    pending.push({ el: el, inset: inset || 0, fire: fire });
+  function sweep() { for (var i = fallback.length - 1; i >= 0; i--) if (rectVisible(fallback[i].el, fallback[i].frac)) fallback.splice(i, 1)[0].go(); }
+  if (!("IntersectionObserver" in window)) { addEventListener("scroll", sweep, { passive: true }); addEventListener("resize", sweep); addEventListener("hashchange", function () { requestAnimationFrame(sweep); }); }
+  window.__appear = function (el, cb, frac) {
+    frac = frac == null ? 0.12 : frac;           // how far into the screen it must come before playing
+    var done = false;
+    function go() { if (!done) { done = true; cb(el); } }
     if ("IntersectionObserver" in window) {
-      io = new IntersectionObserver(function (es) { if (es[0].isIntersecting) fire(); }, { rootMargin: "0px 0px -" + (inset || 0) + "px 0px" });
+      var io = new IntersectionObserver(function (es) {
+        es.forEach(function (e) { if (e.isIntersecting) { io.disconnect(); go(); } });
+      }, { rootMargin: "0px 0px -" + Math.round(frac * 100) + "% 0px", threshold: 0 });
       io.observe(el);
-    }
-  }
-  window.addEventListener("scroll", checkPending, { passive: true });
-  window.addEventListener("resize", checkPending);
-  window.addEventListener("load", checkPending);
-  setTimeout(checkPending, 300);
+    } else { fallback.push({ el: el, frac: frac, go: go }); requestAnimationFrame(sweep); }
+  };
+})();
+/* ---------------- motion (ported from the live site) ---------------- */
+(function () {
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduce) return;
+  var fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
-  // Fade sections in as they scroll into view
-  var targets = document.querySelectorAll(".section-head, .panel, .stat, .contact-inner > *");
-  if (!reduceMotion) {
-    targets.forEach(function (el) {
-      el.classList.add("reveal");
-      whenVisible(el, function () { el.classList.add("visible"); }, 60);
-    });
-  }
+  var appear = window.__appear;
+  function settle(el, cls) { el.classList.add(cls, "no-anim"); void el.offsetWidth; el.classList.remove("no-anim"); }
 
-  // Focus section: step icons draw themselves in sequence on first view
-  var iconSteps = document.getElementById("icon-steps");
-  if (iconSteps && !reduceMotion) {
-    // measure every stroke so the draw-on effect works the same in all browsers
-    iconSteps.querySelectorAll(".ico :not(use)").forEach(function (shape) {
-      var len = 100;
-      try { len = Math.ceil(shape.getTotalLength()) + 1; } catch (e) {}
-      shape.removeAttribute("pathLength");
-      shape.style.setProperty("--len", len + "px");
-    });
-    iconSteps.classList.add("ready", "no-anim");
-    void iconSteps.offsetWidth;
-    iconSteps.classList.remove("no-anim");
-    whenVisible(iconSteps, function () { iconSteps.classList.add("play"); }, 80);
-  }
+  // 1. sections fade in as they appear on screen
+  document.querySelectorAll(".sec-head, .card, .stat, .product > *, .banner, .lanes").forEach(function (el) {
+    if (el.closest(".hero")) return;
+    settle(el, "reveal");
+    appear(el, function () { el.classList.add("in"); }, 0.08);
+  });
 
-  // Roadmap progress line: route draws, progress fills to "We are here", marker pops (once, on first view)
-  var roadmap = document.querySelector(".rm");
-  if (roadmap && !reduceMotion) {
-    // Jump straight to the hidden start state (no transition), so nothing lingers if the visitor arrives fast
-    roadmap.classList.add("rm-ready", "rm-init");
-    void roadmap.offsetWidth;
-    roadmap.classList.remove("rm-init");
-    whenVisible(roadmap, function () { roadmap.classList.add("play"); }, 120);
-  }
+  // 2. statistics count up
+  document.querySelectorAll(".count[data-to]").forEach(function (el) {
+    if (el.closest(".supply")) return;   // supply bars count in step with their own bar
+    var to = +el.dataset.to, dec = +(el.dataset.dec || 0);
+    function fmt(n) { return dec ? n.toFixed(dec) : Math.round(n).toLocaleString("en-US"); }
+    el.textContent = fmt(0);
+    appear(el, function () {
+      var t0 = null;
+      (function tick(now) {
+        if (t0 === null) t0 = now;
+        var k = Math.min(1, (now - t0) / 1600);
+        el.textContent = fmt(to * (1 - Math.pow(1 - k, 3)));
+        if (k < 1) requestAnimationFrame(tick);
+      })(performance.now());
+    }, 0.1);
+  });
 
-  var finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  // 3. roadmap: route draws, progress fills, marker pops
+  document.querySelectorAll(".track").forEach(function (tr) {
+    settle(tr, "ready");
+    appear(tr, function () { tr.classList.add("play"); }, 0.15);
+  });
 
-  // Count-up statistics: numbers roll up from 0 the first time they scroll into view
-  var counts = document.querySelectorAll(".count[data-to]");
-  if (counts.length && "IntersectionObserver" in window && !reduceMotion) {
-    var fmt = function (n) { return Math.round(n).toLocaleString("en-US"); };
-    var countIO = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (!entry.isIntersecting) return;
-        countIO.unobserve(entry.target);
-        var el = entry.target, to = +el.dataset.to, start = null, dur = 1600;
-        function tick(now) {
-          if (start === null) start = now;
-          var k = Math.min(1, (now - start) / dur);
-          el.textContent = fmt(to * (1 - Math.pow(1 - k, 3)));   // ease-out
-          if (k < 1) requestAnimationFrame(tick);
-        }
-        el.textContent = "0";
-        requestAnimationFrame(tick);
+  // 4. mission icons draw themselves in sequence
+  document.querySelectorAll(".steps").forEach(function (st) {
+    settle(st, "ready");
+    appear(st, function () {
+      st.querySelectorAll(".ico :not(use)").forEach(function (sh) {
+        var len = 100; try { len = Math.ceil(sh.getTotalLength()) + 1; } catch (e) {}
+        sh.style.setProperty("--len", len + "px");
       });
-    }, { threshold: 0.6 });
-    counts.forEach(function (el) { countIO.observe(el); });
-  }
+      void st.offsetWidth;
+      requestAnimationFrame(function () { st.classList.add("play"); });
+    }, 0.12);
+  });
 
-  // Tilt cards: asteroid-type cards lean toward the cursor (mouse/trackpad only)
-  if (finePointer && !reduceMotion) {
-    document.querySelectorAll(".type-card").forEach(function (card) {
-      var max = 7;   // degrees
-      card.addEventListener("mousemove", function (e) {
-        var r = card.getBoundingClientRect();
-        var x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
-        card.classList.remove("tilt-reset");
-        card.classList.add("tilting");
-        card.style.transform = "perspective(900px) rotateX(" + ((0.5 - y) * max).toFixed(2) + "deg) rotateY(" + ((x - 0.5) * max).toFixed(2) + "deg) translateZ(0)";
-        card.style.setProperty("--gx", (x * 100).toFixed(1) + "%");
-        card.style.setProperty("--gy", (y * 100).toFixed(1) + "%");
-      });
-      card.addEventListener("mouseleave", function () {
-        card.classList.remove("tilting");
-        card.classList.add("tilt-reset");
-        card.style.transform = "";
-      });
+  // 5. asteroid-type cards tilt toward the cursor
+  if (fine) document.querySelectorAll(".type").forEach(function (card) {
+    card.addEventListener("mousemove", function (e) {
+      var r = card.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+      card.classList.remove("tilt-reset"); card.classList.add("tilting");
+      card.style.transform = "perspective(900px) rotateX(" + ((.5 - y) * 7).toFixed(2) + "deg) rotateY(" + ((x - .5) * 7).toFixed(2) + "deg)";
+      card.style.setProperty("--gx", (x * 100).toFixed(1) + "%"); card.style.setProperty("--gy", (y * 100).toFixed(1) + "%");
     });
-  }
+    card.addEventListener("mouseleave", function () { card.classList.remove("tilting"); card.classList.add("tilt-reset"); card.style.transform = ""; });
+  });
 
-  // Hero photo drift: slower-than-page scroll (parallax) plus a gentle lean toward the cursor
-  var heroPhoto = document.querySelector(".hero-photo");
-  var hero = document.querySelector(".hero");
-  if (heroPhoto && hero && !reduceMotion) {
-    var heroVisible = true, mx = 0, my = 0, tx = 0, ty = 0, running = false;
-    function heroFrame() {
-      mx += (tx - mx) * 0.06;
-      my += (ty - my) * 0.06;
-      var y = Math.min(window.scrollY, hero.offsetHeight) * 0.35;
-      heroPhoto.style.transform = "translate3d(" + mx.toFixed(2) + "px," + (y + my).toFixed(2) + "px,0)";
-      var settling = Math.abs(tx - mx) > 0.1 || Math.abs(ty - my) > 0.1;
-      running = heroVisible && (settling || window.scrollY < hero.offsetHeight);
-      if (running) requestAnimationFrame(heroFrame);
+  // 6. hero photo: slower-than-page scroll plus a gentle lean away from the cursor
+  var hero = document.querySelector(".hero"), photo = document.querySelector(".hero-photo");
+  if (hero && photo) {
+    var mx = 0, my = 0, tx = 0, ty = 0, running = false;
+    function frame() {
+      mx += (tx - mx) * .06; my += (ty - my) * .06;
+      var r = hero.getBoundingClientRect(), y = Math.max(0, -r.top) * .35;
+      photo.style.transform = "translate3d(" + mx.toFixed(2) + "px," + (y + my).toFixed(2) + "px,0)";
+      running = r.height > 0 && r.bottom > 0 && (Math.abs(tx - mx) > .1 || Math.abs(ty - my) > .1);
+      if (running) requestAnimationFrame(frame);
     }
-    function wake() { if (!running && heroVisible) { running = true; requestAnimationFrame(heroFrame); } }
-    if ("IntersectionObserver" in window) {
-      new IntersectionObserver(function (es) { heroVisible = es[0].isIntersecting; wake(); }).observe(hero);
-    }
+    function wake() { if (!running) { running = true; requestAnimationFrame(frame); } }
     window.addEventListener("scroll", wake, { passive: true });
-    if (finePointer) {
-      hero.addEventListener("mousemove", function (e) {
-        tx = (e.clientX / window.innerWidth - 0.5) * -28;   // up to ±14px, opposite the cursor
-        ty = (e.clientY / window.innerHeight - 0.5) * -20;  // up to ±10px
-        wake();
-      });
+    if (fine) {
+      hero.addEventListener("mousemove", function (e) { tx = (e.clientX / innerWidth - .5) * -28; ty = (e.clientY / innerHeight - .5) * -20; wake(); });
       hero.addEventListener("mouseleave", function () { tx = 0; ty = 0; wake(); });
     }
-    wake();
   }
+})();
 
-  // Copy email to clipboard
-  var copyBtn = document.getElementById("copy-email");
-  var status = document.getElementById("copy-status");
-  if (copyBtn) {
-    copyBtn.addEventListener("click", function () {
-      var email = copyBtn.dataset.email;
-      function done(ok) {
-        status.textContent = ok ? "Email copied to clipboard." : email;
-        setTimeout(function () { status.textContent = ""; }, 3000);
-      }
-      if (navigator.clipboard && window.isSecureContext) {
-        navigator.clipboard.writeText(email).then(function () { done(true); }, function () { done(false); });
-      } else {
-        done(false);
-      }
+/* ---------------- platform diagram: connectors drawn from the real card positions ---------------- */
+(function () {
+  var stack = document.querySelector(".stack");
+  if (!stack) return;
+  var flow = stack.querySelector(".flow"), svg = flow.querySelector("svg");
+  var rails = [].slice.call(svg.querySelectorAll(".rails path")), draws = [].slice.call(svg.querySelectorAll(".draw path"));
+  var hub = svg.querySelector(".hub");
+  var layers = [].slice.call(stack.querySelectorAll(".layer")), outs = [].slice.call(stack.querySelectorAll(".out"));
+  layers.forEach(function (el, i) { el.style.setProperty("--k", i); });
+  outs.forEach(function (el, i) { el.style.setProperty("--k", i); });
+
+  function layout() {
+    var f = flow.getBoundingClientRect();
+    if (!f.width) return;                       // page hidden
+    var W = f.width, H = f.height, d = [];
+    svg.setAttribute("viewBox", "0 0 " + W + " " + H);
+    var vertical = getComputedStyle(stack).gridTemplateColumns.split(" ").length < 3;
+    if (vertical) {                             // phones: one line down through the hub, splitting to the deliverables
+      var cx = W / 2, hy = H / 2;
+      d = ["M" + cx + " 0 V" + hy, "M" + (cx - 0.01) + " 0 V" + hy, "M" + (cx + 0.01) + " 0 V" + hy,
+           "M" + cx + " " + hy + " V" + H, "M" + (cx + 0.01) + " " + hy + " V" + H];
+      hub.setAttribute("cx", cx); hub.setAttribute("cy", hy);
+    } else {
+      var hx = W * 0.5, hy2 = H / 2, g = parseFloat(getComputedStyle(stack).columnGap) || 0;   // reach the card edges across the grid gap
+      layers.forEach(function (el) { var r = el.getBoundingClientRect(), y = r.top + r.height / 2 - f.top;
+        d.push("M" + (-g) + " " + y.toFixed(1) + " C" + (hx * .7).toFixed(1) + " " + y.toFixed(1) + " " + (hx * .45).toFixed(1) + " " + hy2 + " " + hx + " " + hy2); });
+      outs.forEach(function (el) { var r = el.getBoundingClientRect(), y = r.top + r.height / 2 - f.top;
+        d.push("M" + hx + " " + hy2 + " C" + (hx + (W - hx) * .55).toFixed(1) + " " + hy2 + " " + (hx + (W - hx) * .3).toFixed(1) + " " + y.toFixed(1) + " " + (W + g) + " " + y.toFixed(1)); });
+      hub.setAttribute("cx", hx); hub.setAttribute("cy", hy2);
+    }
+    d.forEach(function (p, i) {
+      rails[i].setAttribute("d", p); draws[i].setAttribute("d", p);
+      var L = Math.ceil(draws[i].getTotalLength()) + 2; draws[i].style.setProperty("--l", L + "px");
     });
+  }
+  // hovering a product lights its connector
+  layers.forEach(function (el, i) {
+    el.addEventListener("mouseenter", function () { rails[i].classList.add("hot"); });
+    el.addEventListener("mouseleave", function () { rails[i].classList.remove("hot"); });
+  });
+  window.addEventListener("resize", layout);
+  window.addEventListener("load", layout);
+  window.addEventListener("hashchange", function () { requestAnimationFrame(layout); });
+  layout();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
+
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduce) return;
+  stack.classList.add("ready");
+  window.__appear(stack, function () { layout(); stack.classList.add("play"); }, 0.15);
+})();
+
+/* supply bars on the Mission page */
+(function () {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  var card = document.querySelector(".supply");
+  if (!card) return;
+  card.classList.add("ready");
+  var nums = [].slice.call(card.querySelectorAll(".count"));
+  nums.forEach(function (el) { el.textContent = "0"; });
+  function countUp(el, delay) {
+    var to = +el.dataset.to, t0 = null;
+    setTimeout(function () {
+      (function tick(now) { if (t0 === null) t0 = now; var k = Math.min(1, (now - t0) / 1300); el.textContent = Math.round(to * (1 - Math.pow(1 - k, 3))); if (k < 1) requestAnimationFrame(tick); })(performance.now());
+    }, delay);
+  }
+  function play() {
+    card.classList.add("play");
+    nums.forEach(function (el, i) { countUp(el, 200 + i * 350); });   // same timing as each bar's fill
+  }
+  // wait until the card is mostly on screen and the visitor has paused on it, so the bars fill while being watched
+  var played = false, timer = null;
+  function arm(on) {
+    if (played) return;
+    if (on && !timer) timer = setTimeout(function () { played = true; if (io) io.disconnect(); play(); }, 450);
+    if (!on && timer) { clearTimeout(timer); timer = null; }
+  }
+  var io = null;
+  if ("IntersectionObserver" in window) {
+    io = new IntersectionObserver(function (es) {
+      // the whole card is on screen (ratio only: rootMargin is ignored inside a cross-origin frame)
+      es.forEach(function (e) { arm(e.isIntersecting && e.intersectionRatio >= 0.98); });
+    }, { threshold: [0, .5, .9, .98, 1] });
+    io.observe(card);
+  } else {
+    window.__appear(card, play, 0.35);
   }
 })();

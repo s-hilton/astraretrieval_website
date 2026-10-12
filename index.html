@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Astra Retrieval – Asteroid Capture &amp; Cislunar Return</title>
-  <meta name="description" content="Astra Retrieval is building the logistics layer for asteroid mining: locating high-value asteroids, capturing them, and delivering them to cislunar space for mining and refining customers.">
-  <meta name="theme-color" content="#0b1020">
+  <meta name="description" content="Astra Retrieval captures water- and metal-rich asteroids and delivers them to cislunar space, with capture spacecraft, autonomous deep-space flight software, and a private deep space network.">
+  <meta name="theme-color" content="#070a14">
 
   <meta property="og:type" content="website">
   <meta property="og:title" content="Astra Retrieval – Asteroid Capture &amp; Cislunar Return">
@@ -19,502 +19,408 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Michroma&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Michroma&family=Montserrat:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
   <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to content</a>
 
-  <header class="site-header">
-    <div class="container nav">
-      <a href="#top" class="brand" aria-label="Astra Retrieval – home">
-        <img src="assets/img/logo-wordmark.png" alt="Astra Retrieval" width="220" height="28">
-      </a>
-      <button class="nav-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Open menu">
-        <span></span><span></span><span></span>
-      </button>
-      <nav id="nav-links" class="nav-links" aria-label="Main">
-        <a href="#focus">Mission</a>
-        <a href="#how">How it works</a>
-        <a href="#asteroids">Asteroids</a>
-        <a href="#markets">Markets</a>
-        <a href="#roadmap">Roadmap</a>
-        <a href="#team">Team</a>
-        <a href="https://medium.com/astra-retrieval/newsletters/astra-retrieval-updates" class="btn btn-follow btn-sm" target="_blank" rel="noopener">Follow</a>
-        <a href="#contact" class="btn btn-outline btn-sm">Contact</a>
-      </nav>
+<!-- shared asteroid glyph, traced from the Astra Retrieval logo -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="glyph" viewBox="0 0 557 600"><path fill-rule="evenodd" d="M 470.3 1.5 C 446.4 5.8,400.9 24,320.1 61.7 C 298.4 71.7,279.9 80,279 80 C 278.1 80,265.7 77.3,251.6 74 C 170.2 55.1,135 55.4,112.7 75.1 C 81.8 102.2,17.3 276.6,2.5 372.5 C 0 388.8,-0.6 413.9,1.3 423.9 C 5.1 443.4,16.3 458.5,46 483.9 C 128.5 554.5,200.1 595.9,246.2 599.7 C 262.5 601,282.4 594.5,325.5 573.6 C 387.5 543.5,487 487.9,497.5 477.5 C 505.2 469.7,527.1 394.6,544.4 316.5 C 559 250.7,560.1 227.3,550.4 187 C 545.1 165,542.1 149.9,540.4 136.2 C 538.4 119.4,534.2 106.4,522.8 81.7 C 513.9 62.1,504 31.3,504 22.8 C 504 4.5,492.8 -2.6,470.3 1.5 M 457.5 28.3 C 436 36.3,390.5 66.3,372.9 84.1 C 349.9 107.2,353.7 126.4,388 161.1 C 405.3 178.5,411.2 181.5,428 181.5 C 439.1 181.4,439.9 181.3,453 176.6 C 484.4 165.5,497.2 163,510.2 165.4 C 522.7 167.8,523.7 166.5,521.4 150.8 C 515.7 111.9,487 46.9,472.5 40.1 C 467.6 37.8,467.2 36.5,469.6 31.9 C 472.8 25.6,468.3 24.3,457.5 28.3 M 345 72.3 C 339.2 74.7,328 79.7,320 83.5 C 294.4 95.4,288.6 97.3,277.5 97.2 C 269.6 97.2,264.2 96.1,231 88.6 C 203.1 82.2,190 80.5,166.5 80.5 C 140.4 80.5,130.5 82.7,123 90.1 C 116.1 97.1,115.8 103.2,115.3 249.1 L 114.9 377.7 96.3 401.6 C 65.3 441.5,54 457.2,54 460.1 C 54 461.3,104.8 503.2,120.5 515 C 154.9 540.8,190.4 561.8,212 569 C 230.7 575.3,232.3 573.5,237.5 540.5 C 247.5 476.7,248 475.8,284.6 441.9 C 350 381.5,384.3 358.9,411 358.8 C 429.9 358.7,436.1 364.6,454.5 400.1 C 471.2 432.1,484.3 452.7,487.3 451.7 C 491.1 450.5,520.3 340.2,532 283.1 C 538.1 253.4,539.6 229,536.5 211.7 C 530.1 175.7,503.2 169.1,456.5 191.9 C 434.5 202.7,429.1 210.7,425 238.3 C 423.7 246.6,423.4 247.5,419.3 252.1 C 401.4 271.9,315.1 325,277.2 339.4 C 231.4 356.9,209.9 347.4,187 299.8 C 171.2 267,162.8 231.6,162.6 197.5 C 162.5 177.7,163.6 174.6,176.1 162.1 C 204 134,241.9 124.9,311.5 129.7 C 329.8 131,336.4 130.5,338.1 127.8 C 338.6 127.1,338.7 123,338.3 118.8 C 337.4 107.4,341.9 96.6,355.6 77.1 C 362.8 66.9,360.5 65.9,345 72.3 M 257 145.1 C 202.7 150.7,176.7 170.3,176.8 206 C 176.9 225.8,185.9 256,200.6 285.3 C 223.7 331.2,239 337.5,280.1 318.2 C 299.7 309,346.6 281.9,372 265.1 C 397.1 248.5,405.7 238.3,411.5 218.1 C 415.7 203.8,414.4 201,400 192.9 C 387.3 185.8,380 180.1,364.9 165.3 C 348.3 149.1,345.6 147.5,331.6 145.4 C 321.3 143.8,271.3 143.7,257 145.1 M 85.2 162.8 C 71.6 192.3,41.5 293.7,31.6 343.1 C 25.7 372.5,23.1 405,25.5 416.7 C 27.1 424,32.4 443.6,33 444.3 C 33.7 445.1,50.2 427.7,83.4 391.2 L 98.3 374.8 97.1 337.2 C 93.6 222.5,90.6 156,89 156 C 88.6 156,86.9 159,85.2 162.8 M 397.2 376 C 369.1 390.1,320.5 426.7,289.8 457 C 267.9 478.7,263.8 485.8,260.5 508 C 256.9 531.5,254.7 576.1,256.9 578.3 C 260.6 582,311.3 559.3,373.5 525.9 C 389.5 517.4,468.7 473.4,469.9 472.4 C 471.1 471.4,443.6 412,434.9 396.7 C 427.3 383.4,415 371,409.4 371 C 408.2 371,402.7 373.2,397.2 376"/></symbol>
+</svg>
+
+<header class="bar">
+  <div class="wrap">
+    <a href="#home" class="logo" aria-label="Astra Retrieval home"><img src="assets/img/logo-wordmark.png" alt="Astra Retrieval" width="190" height="24"></a>
+    <button class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="#platform">Platform</a>
+      <a href="#mission">Mission</a>
+      <a href="#roadmap">Roadmap</a>
+      <a href="#company">Company</a>
+      <a href="https://medium.com/astra-retrieval/newsletters/astra-retrieval-updates" class="btn btn-follow" target="_blank" rel="noopener">Follow</a>
+      <a href="#contact" class="btn btn-solid">Contact</a>
+    </nav>
+  </div>
+</header>
+<div class="status" aria-label="Company status">
+  <div class="wrap mono">
+    <span><span class="dot"></span>Phase 1 <b>Foundation</b></span>
+    <span>Products <b>3 in development</b></span>
+    <span>Delivery <b>Cislunar space</b></span>
+  </div>
+</div>
+
+<main>
+<!-- ============================== HOME ============================== -->
+<section class="view" data-view="home">
+  <div class="hero">
+    <div class="hero-photo" aria-hidden="true"></div>
+    <div class="hero-shade" aria-hidden="true"></div>
+    <div class="wrap">
+      <p class="eyebrow">Asteroid capture &amp; cislunar return</p>
+      <h1 class="d1">The logistics layer for the <em>space economy</em></h1>
+      <p class="lead">We're building the spacecraft, autonomous flight software, and deep space network to capture near-Earth asteroids and deliver them to cislunar space for mining and refining customers.</p>
+      <div class="row">
+        <a class="btn btn-solid" href="#platform">Explore the platform</a>
+        <a class="btn btn-line" href="https://medium.com/astra-retrieval/newsletters/astra-retrieval-updates" target="_blank" rel="noopener">Follow our progress <svg viewBox="0 0 16 16"><path d="M6 3h7v7M13 3 4 12"/></svg></a>
+      </div>
+      <div class="readout mono" aria-label="Mission at a glance">
+        <div>Targets<span class="v">C-type &amp; M-type NEAs</span></div>
+        <div>Delivery<span class="v">Cislunar space</span></div>
+      </div>
     </div>
-  </header>
+    <a class="cue" href="#platform-teaser" aria-label="Scroll down"></a>
+  </div>
 
-  <main id="main">
-
-    <!-- HERO ============================================================ -->
-    <section class="hero" id="top">
-      <div class="hero-bg" aria-hidden="true"><div class="hero-photo"></div></div>
-      <div class="container hero-inner">
-        <p class="tagline">We bring the asteroids to the miners</p>
-        <h1>Asteroid Capture &amp;<br>Cislunar Return</h1>
-        <p class="lead">Astra Retrieval is building the logistics layer for asteroid mining: locating high-value asteroids, capturing them, transporting them to cislunar space, and delivering them to mining and refining customers.</p>
-        <div class="hero-cta">
-          <a href="#how" class="btn btn-primary">See how it works</a>
-          <a href="#contact" class="btn btn-outline">Get in touch</a>
+  <section class="sec" id="platform-teaser">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">The platform</p>
+        <h2 class="d2">Three products. Two deliverables.</h2>
+        <p class="lead">Our network and software fly our own retrieval missions. Both are also available to other spacecraft operators.</p>
+      </div>
+      <div class="stack">
+        <div class="layers">
+          <a class="layer" href="#spacecraft"><svg class="ico" viewBox="-40 -40 80 80" aria-hidden="true"><rect x="-8" y="-9" width="16" height="18"/><rect x="-34" y="-7" width="20" height="14"/><rect x="14" y="-7" width="20" height="14"/><path d="M-14 0 H-8 M8 0 H14 M-24 -7 V7 M24 -7 V7"/></svg><span><strong>Retrieval spacecraft</strong><small>Capture bag on flight-proven components</small></span><span class="arrow">→</span></a>
+          <a class="layer" href="#software"><svg class="ico" viewBox="-40 -40 80 80" aria-hidden="true"><circle cx="-20" cy="16" r="5"/><path d="M-15 13 C 0 0 4 -18 20 -18" stroke-dasharray="3 4"/><circle cx="20" cy="-18" r="4"/><path d="M-24 -20 L-30 -14 L-24 -8 M-12 -20 L-6 -14 L-12 -8"/></svg><span><strong>Autonomous flight software</strong><small>Navigation, guidance, mission operations</small></span><span class="arrow">→</span></a>
+          <a class="layer" href="#network"><svg class="ico" viewBox="-40 -40 80 80" aria-hidden="true"><path d="M8.1 7.7 Q -10.2 6.2 -11.7 -12.1 Z"/><path d="M8.1 7.7 L3.9 -7.9 L-11.7 -12.1"/><circle cx="3.9" cy="-7.9" r="1.6"/><path d="M5.6 -17.7 A 10 10 0 0 1 13.7 -9.6 M6.9 -24.6 A 17 17 0 0 1 20.6 -10.9"/><path d="M-5 4 L-11 21 M-5 4 L2 21 M-15 21 H6"/></svg><span><strong>Private deep space network</strong><small>Tracking &amp; communications beyond Earth orbit</small></span><span class="arrow">→</span></a>
+        </div>
+        <div class="flow" aria-hidden="true">
+          <svg class="flow-svg">
+            <g class="rails"><path id="fl-0"/><path id="fl-1"/><path id="fl-2"/><path id="fl-3"/><path id="fl-4"/></g>
+            <g class="draw"><path/><path/><path/><path/><path/></g>
+            <circle class="hub" r="5"/>
+            <g class="dots">
+              <circle r="2.6"><animateMotion dur="2.6s" begin="0s" repeatCount="indefinite"><mpath href="#fl-0"/></animateMotion></circle>
+              <circle r="2.6"><animateMotion dur="2.6s" begin="-.9s" repeatCount="indefinite"><mpath href="#fl-1"/></animateMotion></circle>
+              <circle r="2.6"><animateMotion dur="2.6s" begin="-1.7s" repeatCount="indefinite"><mpath href="#fl-2"/></animateMotion></circle>
+              <circle r="2.6" class="d-out"><animateMotion dur="2.2s" begin="-.4s" repeatCount="indefinite"><mpath href="#fl-3"/></animateMotion></circle>
+              <circle r="2.6" class="d-sell"><animateMotion dur="2.2s" begin="-1.3s" repeatCount="indefinite"><mpath href="#fl-4"/></animateMotion></circle>
+            </g>
+          </svg>
+        </div>
+        <div class="outputs">
+          <div class="out"><strong>Asteroid deliveries</strong><span class="dim">Water and metals delivered to cislunar customers</span></div>
+          <div class="out sell"><strong>Services for operators</strong><span class="dim">Licensed flight software and network time</span></div>
         </div>
       </div>
-      <a href="#focus" class="scroll-cue" aria-label="Scroll to next section"><span></span></a>
-    </section>
-
-    <!-- FOCUS ============================================================ -->
-    <section class="section" id="focus">
-      <div class="container focus">
-        <div class="icon-steps-wrap">
-        <!-- asteroid glyph traced from the Astra Retrieval logo, reused in the icons below -->
-        <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
-          <symbol id="ar-asteroid" viewBox="0 0 557 600"><path fill-rule="evenodd" d="M 470.3 1.5 C 446.4 5.8,400.9 24,320.1 61.7 C 298.4 71.7,279.9 80,279 80 C 278.1 80,265.7 77.3,251.6 74 C 170.2 55.1,135 55.4,112.7 75.1 C 81.8 102.2,17.3 276.6,2.5 372.5 C 0 388.8,-0.6 413.9,1.3 423.9 C 5.1 443.4,16.3 458.5,46 483.9 C 128.5 554.5,200.1 595.9,246.2 599.7 C 262.5 601,282.4 594.5,325.5 573.6 C 387.5 543.5,487 487.9,497.5 477.5 C 505.2 469.7,527.1 394.6,544.4 316.5 C 559 250.7,560.1 227.3,550.4 187 C 545.1 165,542.1 149.9,540.4 136.2 C 538.4 119.4,534.2 106.4,522.8 81.7 C 513.9 62.1,504 31.3,504 22.8 C 504 4.5,492.8 -2.6,470.3 1.5 M 457.5 28.3 C 436 36.3,390.5 66.3,372.9 84.1 C 349.9 107.2,353.7 126.4,388 161.1 C 405.3 178.5,411.2 181.5,428 181.5 C 439.1 181.4,439.9 181.3,453 176.6 C 484.4 165.5,497.2 163,510.2 165.4 C 522.7 167.8,523.7 166.5,521.4 150.8 C 515.7 111.9,487 46.9,472.5 40.1 C 467.6 37.8,467.2 36.5,469.6 31.9 C 472.8 25.6,468.3 24.3,457.5 28.3 M 345 72.3 C 339.2 74.7,328 79.7,320 83.5 C 294.4 95.4,288.6 97.3,277.5 97.2 C 269.6 97.2,264.2 96.1,231 88.6 C 203.1 82.2,190 80.5,166.5 80.5 C 140.4 80.5,130.5 82.7,123 90.1 C 116.1 97.1,115.8 103.2,115.3 249.1 L 114.9 377.7 96.3 401.6 C 65.3 441.5,54 457.2,54 460.1 C 54 461.3,104.8 503.2,120.5 515 C 154.9 540.8,190.4 561.8,212 569 C 230.7 575.3,232.3 573.5,237.5 540.5 C 247.5 476.7,248 475.8,284.6 441.9 C 350 381.5,384.3 358.9,411 358.8 C 429.9 358.7,436.1 364.6,454.5 400.1 C 471.2 432.1,484.3 452.7,487.3 451.7 C 491.1 450.5,520.3 340.2,532 283.1 C 538.1 253.4,539.6 229,536.5 211.7 C 530.1 175.7,503.2 169.1,456.5 191.9 C 434.5 202.7,429.1 210.7,425 238.3 C 423.7 246.6,423.4 247.5,419.3 252.1 C 401.4 271.9,315.1 325,277.2 339.4 C 231.4 356.9,209.9 347.4,187 299.8 C 171.2 267,162.8 231.6,162.6 197.5 C 162.5 177.7,163.6 174.6,176.1 162.1 C 204 134,241.9 124.9,311.5 129.7 C 329.8 131,336.4 130.5,338.1 127.8 C 338.6 127.1,338.7 123,338.3 118.8 C 337.4 107.4,341.9 96.6,355.6 77.1 C 362.8 66.9,360.5 65.9,345 72.3 M 257 145.1 C 202.7 150.7,176.7 170.3,176.8 206 C 176.9 225.8,185.9 256,200.6 285.3 C 223.7 331.2,239 337.5,280.1 318.2 C 299.7 309,346.6 281.9,372 265.1 C 397.1 248.5,405.7 238.3,411.5 218.1 C 415.7 203.8,414.4 201,400 192.9 C 387.3 185.8,380 180.1,364.9 165.3 C 348.3 149.1,345.6 147.5,331.6 145.4 C 321.3 143.8,271.3 143.7,257 145.1 M 85.2 162.8 C 71.6 192.3,41.5 293.7,31.6 343.1 C 25.7 372.5,23.1 405,25.5 416.7 C 27.1 424,32.4 443.6,33 444.3 C 33.7 445.1,50.2 427.7,83.4 391.2 L 98.3 374.8 97.1 337.2 C 93.6 222.5,90.6 156,89 156 C 88.6 156,86.9 159,85.2 162.8 M 397.2 376 C 369.1 390.1,320.5 426.7,289.8 457 C 267.9 478.7,263.8 485.8,260.5 508 C 256.9 531.5,254.7 576.1,256.9 578.3 C 260.6 582,311.3 559.3,373.5 525.9 C 389.5 517.4,468.7 473.4,469.9 472.4 C 471.1 471.4,443.6 412,434.9 396.7 C 427.3 383.4,415 371,409.4 371 C 408.2 371,402.7 373.2,397.2 376"/></symbol>
-        </svg>
-        <ol class="icon-steps" id="icon-steps" aria-label="Business model">
-          <li style="--i: 0">
-            <svg class="ico" viewBox="-40 -40 80 80" aria-hidden="true">
-              <path d="M0 -30 C 9 -20 10 -6 10 12 H -10 C -10 -6 -9 -20 0 -30 Z"/>
-              <circle cx="0" cy="-9" r="4.5"/>
-              <path d="M-10 2 L-17 15 L-10 12 M10 2 L17 15 L10 12"/>
-              <path d="M-5 12 L-6 17 H6 L5 12"/>
-              <path d="M-3 21 L0 29 L3 21"/>
-            </svg>
-            <span>Launch spacecraft</span>
-          </li>
-          <li style="--i: 1">
-            <svg class="ico" viewBox="-40 -40 80 80" aria-hidden="true">
-              <use class="glyph" href="#ar-asteroid" x="-10" y="-16.2" width="30" height="32.3"/>
-              <path d="M-23 0 C -13 -29 31 -31 32 0 C 31 31 -13 29 -23 0"/>
-              <circle cx="-25.5" cy="0" r="2.5"/>
-              <path d="M-27.5 1.8 L-33 7.5 M-27.5 -1.8 L-33 -7.5"/>
-            </svg>
-            <span>Capture asteroid</span>
-          </li>
-          <li style="--i: 2">
-            <svg class="ico" viewBox="-40 -40 80 80" aria-hidden="true">
-              <circle cx="-16" cy="14" r="11"/>
-              <circle cx="-19.5" cy="10.5" r="3"/>
-              <circle cx="-11.5" cy="18.5" r="1.8"/>
-              <use class="glyph" href="#ar-asteroid" x="12.5" y="-26.2" width="15" height="16.2"/>
-              <circle cx="20" cy="-18" r="12"/>
-              <path d="M8.5 -13 C 2 -12 -4 -6 -5 2.5"/>
-              <path d="M-5 2.5 L-9.5 -1.5 M-5 2.5 L-0.5 -1.2"/>
-            </svg>
-            <span>Return it to cislunar space</span>
-          </li>
-          <li style="--i: 3">
-            <svg class="ico" viewBox="-40 -40 80 80" aria-hidden="true">
-              <use class="glyph" href="#ar-asteroid" x="-28" y="-5.2" width="17" height="18.3"/>
-              <path d="M-7 4 H1 M1 4 L-3 0 M1 4 L-3 8"/>
-              <path d="M5 18 V-3 L13 3 V-3 L21 3 V-3 L29 3 V18 Z"/>
-              <path d="M24.5 -1 V-14 H28.5 V2"/>
-              <path d="M11 18 V11 H16 V18"/>
-            </svg>
-            <span>Sell to customers</span>
-          </li>
-        </ol>
-        </div>
-        <div class="panel focus-panel">
-          <p class="kicker">The focus</p>
-          <h2>Own the logistics &ndash; not the mining</h2>
-          <p>Astra Retrieval concentrates on capture and transport, giving downstream operators access to water-rich <strong>C-type</strong> and metal-rich <strong>M-type</strong> asteroids while reducing their supply risk and time constraints.</p>
-          <p class="muted">Miners and refiners shouldn't have to fly years into deep space to find their feedstock. We bring it to them.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- HOW IT WORKS ===================================================== -->
-    <section class="section section-stars" id="how">
-      <div class="container">
-        <header class="section-head">
-          <p class="kicker">How it works</p>
-          <h2>The four-phase model</h2>
-        </header>
-        <div class="grid phases">
-          <article class="panel phase" style="--c: var(--blue)">
-            <p class="phase-num">Phase 01</p>
-            <h3>Locate</h3>
-            <p>Spectroscopy surveys identify high-value near-Earth asteroids with favorable orbits.</p>
-          </article>
-          <article class="panel phase" style="--c: var(--green)">
-            <p class="phase-num">Phase 02</p>
-            <h3>Capture</h3>
-            <p>Launch a spacecraft to the selected asteroid and envelop it with a capture bag.</p>
-          </article>
-          <article class="panel phase" style="--c: var(--gold)">
-            <p class="phase-num">Phase 03</p>
-            <h3>Transport</h3>
-            <p>Move the captured asteroid to cislunar space using fully autonomous AI navigation.</p>
-          </article>
-          <article class="panel phase" style="--c: var(--purple)">
-            <p class="phase-num">Phase 04</p>
-            <h3>Deliver</h3>
-            <p>Deliver asteroids to mining customers. Astra Retrieval owns the logistics &ndash; not the mining and refining.</p>
-          </article>
-        </div>
-
-        <div class="cots panel">
-          <div>
-            <p class="kicker">How we build it</p>
-            <h3>Commercial-off-the-shelf first</h3>
-            <p class="muted">Our spacecraft is built around flight-proven commercial components &ndash; spacecraft bus, ion propulsion, and attitude control &ndash; so engineering effort goes only into the novel technology that matters.</p>
-          </div>
-          <ul class="pill-list">
-            <li>Lower cost</li>
-            <li>Faster development</li>
-            <li>Lower risk</li>
-            <li>Simpler mission integration</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- ASTEROIDS ======================================================== -->
-    <section class="section" id="asteroids">
-      <div class="container">
-        <header class="section-head">
-          <p class="kicker">Our targets</p>
-          <h2>Which asteroids we're after</h2>
-          <p class="muted">Of the more than 40,000 near-Earth asteroids catalogued to date,<sup class="fn"><a href="#src-1" id="ref-1" aria-label="Source 1">1</a></sup> two classes hold the resources the space economy needs most.</p>
-        </header>
-
-        <div class="grid two">
-          <article class="panel type-card" style="--c: var(--green)">
-            <div class="type-head">
-              <h3>C-type</h3>
-              <span class="type-sub">Carbonaceous &middot; most common</span>
-            </div>
-            <p>Dark, ancient bodies made of clay, silicates, and carbon compounds &ndash; among the oldest objects in the solar system. Rich in water and volatiles, making them prime candidates for in-space propellant production.</p>
-            <ul class="tags">
-              <li>Water</li><li>Carbon compounds</li><li>Clay silicates</li><li>Organic matter</li>
-            </ul>
-          </article>
-          <article class="panel type-card" style="--c: var(--blue)">
-            <div class="type-head">
-              <h3>M-type</h3>
-              <span class="type-sub">Metallic</span>
-            </div>
-            <p>Believed to be the exposed iron-nickel cores of ancient protoplanets shattered by collisions billions of years ago. Near-uniform metal composition throughout &ndash; the primary target for platinum-group metal extraction.</p>
-            <ul class="tags">
-              <li>Iron-nickel metal</li><li>Platinum-group metals</li><li>Rare earth elements</li>
-            </ul>
-          </article>
-        </div>
-
-        <div class="grid three stats">
-          <div class="stat" style="--c: var(--green)">
-            <span class="stat-num">&times;<span class="count" data-to="13">13</span></span>
-            <span class="stat-label">more platinum in the richest metallic asteroid material than in the best terrestrial mine ore<sup class="fn"><a href="#src-2" id="ref-2" aria-label="Source 2">2</a></sup></span>
-          </div>
-          <div class="stat" style="--c: var(--red)">
-            <span class="stat-num">~&times;<span class="count" data-to="5000">5,000</span></span>
-            <span class="stat-label">more platinum in metallic (M-type) asteroids than in Earth's crust<sup class="fn"><a href="#src-3" id="ref-3" aria-label="Source 3">3</a></sup></span>
-          </div>
-          <div class="stat" style="--c: var(--blue)">
-            <span class="stat-num"><small>up to</small> &times;<span class="count" data-to="15000">15,000</span></span>
-            <span class="stat-label">more iridium in the richest metallic asteroids than in Earth's crust<sup class="fn"><a href="#src-4" id="ref-4" aria-label="Source 4">4</a></sup></span>
-          </div>
-        </div>
-
-        <div class="panel water">
-          <div class="water-copy">
-            <p class="kicker">Asteroids as a water resource</p>
-            <h3>Water is the most valuable near-term asteroid resource</h3>
-            <p class="muted">NASA's OSIRIS-REx mission found water-bearing clay minerals and carbon-rich organics on Bennu,<sup class="fn"><a href="#src-5" id="ref-5" aria-label="Source 5">5</a></sup> and JAXA's Hayabusa2 confirmed hydrated silicates on Ryugu.<sup class="fn"><a href="#src-6" id="ref-6" aria-label="Source 6">6</a></sup> C-type asteroids can be up to ~10% water by mass<sup class="fn"><a href="#src-7" id="ref-7" aria-label="Source 7">7</a></sup> &ndash; a single 100&nbsp;m asteroid could hold tens of millions of kilograms of water.<sup class="fn"><a href="#src-8" id="ref-8" aria-label="Source 8">8</a></sup></p>
-          </div>
-          <ul class="checks">
-            <li>Rocket propellant &amp; refueling depots</li>
-            <li>Radiation shielding</li>
-            <li>Life support &amp; oxygen</li>
-            <li>Satellite servicing</li>
-            <li>Space habitats &amp; agriculture</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- CRITICAL MINERALS ================================================ -->
-    <section class="section section-stars" id="minerals">
-      <div class="container">
-        <header class="section-head">
-          <p class="kicker">Why it matters</p>
-          <h2>Critical minerals, concentrated supply</h2>
-          <p class="muted">Platinum-group metals and rare earth elements power the technologies defining the 21st century &ndash; yet supply is concentrated in just a few countries.</p>
-        </header>
-        <div class="grid two">
-          <article class="panel mineral" style="--c: var(--gold)">
-            <h3>Platinum-group metals</h3>
-            <p class="symbols" aria-label="Platinum, palladium, rhodium, iridium, ruthenium, osmium">Pt &middot; Pd &middot; Rh &middot; Ir &middot; Ru &middot; Os</p>
-            <p class="muted">Used in catalytic converters, hydrogen fuel cells, electronics, cancer treatment, and hard disk drives. A year's worth of mined platinum would fit in a cube about 2&nbsp;meters on a side.<sup class="fn"><a href="#src-9" id="ref-9" aria-label="Source 9">9</a></sup></p>
-            <div class="bar-row"><span>South Africa</span><div class="bar"><i style="width:70%"></i></div><b>~70%</b></div>
-            <p class="bar-caption">of global platinum mine production<sup class="fn"><a href="#src-10" id="ref-10" aria-label="Source 10">10</a></sup></p>
-          </article>
-          <article class="panel mineral" style="--c: var(--blue)">
-            <h3>Rare earth elements</h3>
-            <p class="symbols" aria-label="Praseodymium, neodymium, terbium, dysprosium">Pr &middot; Nd &middot; Tb &middot; Dy &middot; +13 more</p>
-            <p class="muted">Essential for EV motors, wind turbines, smartphones, defense systems, and MRI imaging. Every EV motor uses roughly 1&ndash;2&nbsp;kg of rare-earth magnets.<sup class="fn"><a href="#src-11" id="ref-11" aria-label="Source 11">11</a></sup></p>
-            <div class="bar-row"><span>China</span><div class="bar"><i style="width:69%"></i></div><b>69%</b></div>
-            <p class="bar-caption">of rare earth mine production<sup class="fn"><a href="#src-12" id="ref-12" aria-label="Source 12">12</a></sup> &ndash; and ~90% of global refining<sup class="fn"><a href="#src-13" id="ref-13" aria-label="Source 13">13</a></sup></p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- MARKETS ========================================================== -->
-    <section class="section" id="markets">
-      <div class="container">
-        <header class="section-head">
-          <p class="kicker">Customers</p>
-          <h2>Uses of asteroid-derived material</h2>
-          <p class="muted">Astra Retrieval supplies the water- and metal-filled asteroids that power the next generation of space infrastructure.</p>
-        </header>
-        <div class="grid three">
-          <article class="panel market" style="--c: var(--blue)">
-            <img src="assets/img/asteroid-icon.png" alt="" class="market-icon" width="40" height="40">
-            <h3>In-orbit refueling</h3>
-            <p class="muted">The space economy: propellant, water, and materials.</p>
-            <ul class="dots">
-              <li>Space agencies (NASA, ESA, JAXA)</li>
-              <li>Commercial space stations</li>
-              <li>Satellite operators &amp; launch providers</li>
-            </ul>
-          </article>
-          <article class="panel market" style="--c: var(--green)">
-            <img src="assets/img/asteroid-icon.png" alt="" class="market-icon" width="40" height="40">
-            <h3>In-space manufacturing</h3>
-            <p class="muted">Companies processing and refining metals in orbit.</p>
-            <ul class="dots">
-              <li>Orbital processing companies</li>
-              <li>In-space manufacturers</li>
-              <li>ISRU operators</li>
-            </ul>
-          </article>
-          <article class="panel market" style="--c: var(--gold)">
-            <img src="assets/img/asteroid-icon.png" alt="" class="market-icon" width="40" height="40">
-            <h3>Terrestrial return</h3>
-            <p class="muted">PGM and rare earth buyers for use on Earth.</p>
-            <ul class="dots">
-              <li>Automotive &amp; clean energy</li>
-              <li>Semiconductor manufacturers</li>
-              <li>National strategic reserves</li>
-            </ul>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- WHY NOW ========================================================== -->
-    <section class="section section-stars" id="why-now">
-      <div class="container">
-        <header class="section-head">
-          <p class="kicker">Why now</p>
-          <h2>Four forces make asteroid retrieval viable</h2>
-        </header>
-        <div class="grid four">
-          <article class="panel why" style="--c: var(--blue)">
-            <h3>Technology ready</h3>
-            <p class="muted">Commercial off-the-shelf components exist today, along with established spacecraft assembly.</p>
-          </article>
-          <article class="panel why" style="--c: var(--green)">
-            <h3>Demand growing</h3>
-            <p class="muted">Demand for critical minerals and the space economy &ndash; projected to reach $1.8T by 2035<sup class="fn"><a href="#src-14" id="ref-14" aria-label="Source 14">14</a></sup> &ndash; is accelerating.</p>
-          </article>
-          <article class="panel why" style="--c: var(--gold)">
-            <h3>Legal framework</h3>
-            <p class="muted">The U.S., Japan, Luxembourg and others recognize private ownership of extracted space resources.<sup class="fn"><a href="#src-15" id="ref-15" aria-label="Source 15">15</a></sup></p>
-          </article>
-          <article class="panel why" style="--c: var(--purple)">
-            <h3>Lower launch costs</h3>
-            <p class="muted">Launch costs have fallen dramatically, making retrieval missions economically viable.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- ROADMAP ========================================================== -->
-    <section class="section" id="roadmap">
-      <div class="container">
-        <header class="section-head">
-          <p class="kicker">Development roadmap</p>
-          <h2>Five phases to operational scale</h2>
-          <p class="muted">Build &middot; Demonstrate &middot; Operate &middot; Scale</p>
-        </header>
-        <!--
-          Roadmap progress:
-            --phase  = the phase you're in (1-5)
-            --within = how far along the line to the next phase (0 = just started, 0.25 = a quarter, 0.5 = halfway ...)
-          When you move into a new phase, also move class="current" and the "We are here" badge to that phase.
-        -->
-        <div class="rm" style="--phase: 1; --within: 0.25">
-          <div class="rm-track" aria-hidden="true"><span class="rm-planned"></span><span class="rm-done"></span><span class="rm-comet"></span></div>
-          <ol class="rm-steps">
-            <li class="rm-step current" style="--c: var(--blue)">
-              <div class="rm-node">01</div>
-              <h3>Design &amp; simulation</h3>
-              <p>Complete the mission architecture.</p>
-              <span class="rm-badge">We are here</span>
-            </li>
-            <li class="rm-step" style="--c: var(--green)">
-              <div class="rm-node">02</div>
-              <h3>Prototype &amp; testing</h3>
-              <p>Validate the spacecraft in orbit.</p>
-            </li>
-            <li class="rm-step" style="--c: var(--gold)">
-              <div class="rm-node">03</div>
-              <h3>Demonstration mission</h3>
-              <p>Retrieve our first asteroid.</p>
-            </li>
-            <li class="rm-step" style="--c: var(--purple)">
-              <div class="rm-node">04</div>
-              <h3>Operational mission</h3>
-              <p>Begin commercial deliveries.</p>
-            </li>
-            <li class="rm-step" style="--c: var(--red)">
-              <div class="rm-node">05</div>
-              <h3>Scale</h3>
-              <p>Expand to a multi-spacecraft fleet.</p>
-            </li>
-          </ol>
-        </div>
-        <p class="rm-follow"><a href="#follow">Follow our progress &rarr;</a></p>
-      </div>
-    </section>
-
-    <!-- MISSION ========================================================== -->
-    <section class="section mission">
-      <div class="mission-bg" aria-hidden="true"></div>
-      <div class="container mission-inner">
-        <h2>Protecting our planet.<br>Expanding what's possible.</h2>
-        <p class="lead">Astra Retrieval captures and delivers asteroids to cislunar space, creating a sustainable supply of critical minerals for Earth and the growing space economy.</p>
-        <div class="grid two">
-          <div class="panel glass" style="--c: var(--red)">
-            <h3>Protect Earth</h3>
-            <ul class="dots">
-              <li>Reduce the need for environmentally destructive mining</li>
-              <li>Secure critical minerals sustainably</li>
-            </ul>
-          </div>
-          <div class="panel glass" style="--c: var(--green)">
-            <h3>Power the space economy</h3>
-            <ul class="dots">
-              <li>Supply materials for lunar and in-space industries</li>
-              <li>Enable long-term space infrastructure and exploration</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- TEAM ============================================================= -->
-    <section class="section" id="team">
-      <div class="container">
-        <header class="section-head">
-          <p class="kicker">Team</p>
-          <h2>The people building it</h2>
-        </header>
-        <div class="grid two team">
-          <article class="panel person">
-            <div class="avatar" aria-hidden="true">SH</div>
-            <div>
-              <h3>Stephen Hilton</h3>
-              <p class="role">Founder &amp; CEO</p>
-              <p class="edu">M.S. Aerospace Engineering &middot; University of South Carolina</p>
-              <ul class="tags">
-                <li>Novel 3D printing methods</li><li>Robotic systems</li><li>Software &amp; electronics</li>
-              </ul>
-            </div>
-          </article>
-          <article class="panel person">
-            <div class="avatar" aria-hidden="true">JP</div>
-            <div>
-              <h3>John Paradise</h3>
-              <p class="role">Lead Engineer</p>
-              <p class="edu">M.S. Engineering Mechanics &middot; B.S. Materials Science &amp; Engineering &middot; Virginia Tech</p>
-              <ul class="tags">
-                <li>3D printing novel composites</li><li>Robotic systems</li><li>Materials &amp; mechanics</li><li>Industrial manufacturing</li>
-              </ul>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- CONTACT ========================================================== -->
-    <section class="section contact" id="contact">
-      <div class="contact-bg" aria-hidden="true"></div>
-      <div class="container contact-inner">
-        <p class="kicker">Join us</p>
-        <h2 class="contact-title">Let's mine the <span class="hl">solar system</span> together.</h2>
-        <p class="lead">Investors, partners, future customers, and engineers who want to help build it &ndash; we'd love to hear from you.</p>
-        <div class="email-row">
-          <a class="btn btn-primary email-btn" href="mailto:Stephen.Hilton@astraretrieval.com?subject=Hello%20Astra%20Retrieval">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5"/></svg>
-            Stephen.Hilton@astraretrieval.com
-          </a>
-          <button type="button" class="btn btn-outline" id="copy-email" data-email="Stephen.Hilton@astraretrieval.com">Copy email</button>
-        </div>
-        <p class="copy-status" id="copy-status" role="status"></p>
-
-        <!--
-          FOLLOW OUR PROGRESS
-          Links to the Astra Retrieval Updates newsletter on Medium (subscribe) and the
-          Medium publication (past updates). Same newsletter link as the "Follow" button in the top bar.
-        -->
-        <div class="panel follow" id="follow">
-          <div class="follow-copy">
-            <p class="kicker">Follow our progress</p>
-            <h3>Not ready to talk yet? Watch us build.</h3>
-            <p class="muted">Short, occasional updates on Medium when we hit a milestone &ndash; mission design, supplier agreements, our first hardware.</p>
-          </div>
-          <div class="follow-actions">
-            <a class="btn btn-primary" href="https://medium.com/astra-retrieval/newsletters/astra-retrieval-updates" target="_blank" rel="noopener">
-              Subscribe to updates
-              <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3h7v7M13 3 4 12"/></svg>
-            </a>
-            <a class="btn btn-outline" href="https://medium.com/astra-retrieval" target="_blank" rel="noopener">
-              Read past updates
-              <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3h7v7M13 3 4 12"/></svg>
-            </a>
-            <p class="follow-note">Opens on Medium &middot; free</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SOURCES ========================================================== -->
-    <section class="sources" id="sources" aria-labelledby="sources-title">
-      <div class="container">
-        <h2 id="sources-title">Sources</h2>
-        <ol class="source-list">
-          <li id="src-1">Near-Earth asteroid count: NASA JPL Center for Near Earth Object Studies, <a href="https://cneos.jpl.nasa.gov/stats/" target="_blank" rel="noopener">Discovery Statistics</a>; <a href="https://phys.org/news/2025-11-asteroids.html" target="_blank" rel="noopener">&ldquo;Finding 40,000 asteroids before they find us,&rdquo; Phys.org, Nov. 2025</a>. <a href="#ref-1" class="back" aria-label="Back to text">&uarr;</a></li>
-          <li id="src-2">B. R. Blair, <a href="https://nss.org/wp-content/uploads/2023/05/Role-Of-Near-Earth-Asteroids-In-Long-Term-Platinum-Supply.pdf" target="_blank" rel="noopener"><em>The Role of Near-Earth Asteroids in Long-Term Platinum Supply</em></a> &ndash; top 2% of iron meteorites average 63.8&nbsp;g/t platinum vs. ~5&nbsp;g/t in South African ore. <a href="#ref-2" class="back" aria-label="Back to text">&uarr;</a></li>
-          <li id="src-3">M. Ragheb, <a href="https://mragheb.com/NPRE%20402%20ME%20405%20Nuclear%20Power%20Engineering/Nuclear%20Asteroid%20Mining.pdf" target="_blank" rel="noopener"><em>Nuclear Asteroid Mining</em>, University of Illinois course notes</a> &ndash; ~19&nbsp;ppm platinum in an iron asteroid vs. ~0.004&nbsp;ppm in Earth&rsquo;s crust. <a href="#ref-3" class="back" aria-label="Back to text">&uarr;</a></li>
-          <li id="src-4">Ragheb (above) &ndash; up to ~60&nbsp;ppm iridium in M-type asteroids vs. ~0.001&nbsp;ppm in Earth&rsquo;s crust; M. Elvis, <a href="https://arxiv.org/abs/1312.4450" target="_blank" rel="noopener">&ldquo;How Many Ore-Bearing Asteroids?&rdquo;</a> &ndash; iridium in iron meteorites spans 0.01&ndash;100&nbsp;ppm. <a href="#ref-4" class="back" aria-label="Back to text">&uarr;</a></li>
-          <li id="src-5">NASA, <a href="https://www.nasa.gov/news-release/nasas-bennu-asteroid-sample-contains-carbon-water" target="_blank" rel="noopener">&ldquo;NASA&rsquo;s Bennu Asteroid Sample Contains Carbon, Water,&rdquo; Oct. 2023</a>. <a href="#ref-5" class="back" aria-label="Back to text">&uarr;</a></li>
-          <li id="src-6">T. Nakamura et al., <a href="https://www.science.org/doi/10.1126/science.abn8671" target="_blank" rel="noopener">&ldquo;Formation and evolution of carbonaceous asteroid Ryugu: Direct evidence from returned samples,&rdquo; <em>Science</em>, 2022</a>. <a href="#ref-6" class="back" aria-label="Back to text">&uarr;</a></li>
-          <li id="src-7">M. R. Lee et al., <a href="https://onlinelibrary.wiley.com/doi/10.1111/maps.14099" target="_blank" rel="noopener">&ldquo;The water content of CM carbonaceous chondrite falls and finds,&rdquo; <em>Meteoritics &amp; Planetary Science</em>, 2023</a> &ndash; CM meteorites contain ~2&ndash;10.5&nbsp;wt% water. <a href="#ref-7" class="back" aria-label="Back to text">&uarr;</a></li>
-          <li id="src-8">Astra Retrieval estimate: a 100&nbsp;m sphere at Bennu&rsquo;s bulk density (~1.19&nbsp;g/cm&sup3;) has a mass of ~620 million kg; at up to 10% water by mass that is ~60 million kg. <a href="#ref-8" class="back" aria-label="Back to text">&uarr;</a></li>
-          <li id="src-9">Astra Retrieval estimate: ~180&nbsp;t of annual platinum mine production (<a href="https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-platinum-group.pdf" target="_blank" rel="noopener">USGS</a>) &divide; platinum&rsquo;s density of 21.45&nbsp;t/m&sup3; &asymp; 8.4&nbsp;m&sup3;, a cube ~2&nbsp;m on a side. <a href="#ref-9" class="back" aria-label="Back to text">&uarr;</a></li>
-          <li id="src-10">U.S. Geological Survey, <a href="https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-platinum-group.pdf" target="_blank" rel="noopener"><em>Mineral Commodity Summaries 2026: Platinum-Group Metals</em></a> &ndash; South Africa produced ~120,000&nbsp;kg of platinum in 2025. <a href="#ref-10" class="back" aria-label="Back to text">&uarr;</a></li>
-          <li id="src-11">Thunder Said Energy, <a href="https://thundersaidenergy.com/downloads/electric-vehicles-motors-and-magnets/" target="_blank" rel="noopener">&ldquo;Electric vehicle motors and magnets&rdquo;</a> &ndash; EVs average ~1.5&nbsp;kg of rare-earth permanent magnets. <a href="#ref-11" class="back" aria-label="Back to text">&uarr;</a></li>
-          <li id="src-12">U.S. Geological Survey, <a href="https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-rare-earths.pdf" target="_blank" rel="noopener"><em>Mineral Commodity Summaries 2026: Rare Earths</em></a> &ndash; China 270,000&nbsp;t of 390,000&nbsp;t world mine production (REO) in 2025. <a href="#ref-12" class="back" aria-label="Back to text">&uarr;</a></li>
-          <li id="src-13">International Energy Agency, <a href="https://www.iea.org/reports/rare-earth-elements/executive-summary" target="_blank" rel="noopener"><em>Rare Earth Elements</em></a> &ndash; China accounted for ~91% of separation and refining in 2024. <a href="#ref-13" class="back" aria-label="Back to text">&uarr;</a></li>
-          <li id="src-14">World Economic Forum &amp; McKinsey &amp; Company, <a href="https://www.weforum.org/publications/space-the-1-8-trillion-opportunity-for-global-economic-growth/" target="_blank" rel="noopener"><em>Space: The $1.8 Trillion Opportunity for Global Economic Growth</em>, April 2024</a>. <a href="#ref-14" class="back" aria-label="Back to text">&uarr;</a></li>
-          <li id="src-15">Space Generation Advisory Council, <a href="https://spacegeneration.org/space-resource-regulation-from-national-approaches-to-the-need-for-a-general-framework" target="_blank" rel="noopener">&ldquo;Space Resource Regulation: From National Approaches to the Need for a General Framework&rdquo;</a> &ndash; national laws in the U.S. (2015), Luxembourg (2017), UAE (2019), and Japan (2021). <a href="#ref-15" class="back" aria-label="Back to text">&uarr;</a></li>
-        </ol>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <img src="assets/img/logo-wordmark.png" alt="Astra Retrieval" width="180" height="23" class="footer-logo">
-      <p class="muted">Asteroid capture &amp; cislunar return.</p>
-      <p class="muted small">&copy; <span id="year">2026</span> Astra Retrieval. All rights reserved.</p>
     </div>
-  </footer>
+  </section>
 
-  <script src="assets/js/main.js" defer></script>
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">The mission</p>
+        <h2 class="d2">We bring the asteroids to the miners</h2>
+      </div>
+      <ol class="steps" style="list-style:none;padding:0;margin:0">
+        <li class="step" style="--i: 0"><svg class="ico" viewBox="-40 -40 80 80" aria-hidden="true"><path d="M0 -30 C 9 -20 10 -6 10 12 H -10 C -10 -6 -9 -20 0 -30 Z"/><circle cx="0" cy="-9" r="4.5"/><path d="M-10 2 L-17 15 L-10 12 M10 2 L17 15 L10 12 M-3 21 L0 29 L3 21"/></svg><span class="mono">Step 1</span><h3 class="d3">Launch</h3><p class="dim">A commercial launch puts our spacecraft on course for a selected near-Earth asteroid.</p></li>
+        <li class="step" style="--i: 1"><svg class="ico" viewBox="-40 -40 80 80" aria-hidden="true"><use href="#glyph" x="-10" y="-16.2" width="30" height="32.3"/><path d="M-23 0 C -13 -29 31 -31 32 0 C 31 31 -13 29 -23 0"/><circle cx="-25.5" cy="0" r="2.5"/><path d="M-27.5 1.8 L-33 7.5 M-27.5 -1.8 L-33 -7.5"/></svg><span class="mono">Step 2</span><h3 class="d3">Capture</h3><p class="dim">The spacecraft envelops the asteroid in a capture bag and cinches it closed.</p></li>
+        <li class="step" style="--i: 2"><svg class="ico" viewBox="-40 -40 80 80" aria-hidden="true"><circle cx="-16" cy="14" r="11"/><circle cx="-19.5" cy="10.5" r="3"/><use href="#glyph" x="12.5" y="-26.2" width="15" height="16.2"/><circle cx="20" cy="-18" r="12"/><path d="M8.5 -13 C 2 -12 -4 -6 -5 2.5 M-5 2.5 L-9.5 -1.5 M-5 2.5 L-0.5 -1.2"/></svg><span class="mono">Step 3</span><h3 class="d3">Return</h3><p class="dim">Autonomous software flies the asteroid back to cislunar space.</p></li>
+        <li class="step" style="--i: 3"><svg class="ico" viewBox="-40 -40 80 80" aria-hidden="true"><use href="#glyph" x="-28" y="-5.2" width="17" height="18.3"/><path d="M-7 4 H1 M1 4 L-3 0 M1 4 L-3 8"/><path d="M5 18 V-3 L13 3 V-3 L21 3 V-3 L29 3 V18 Z"/><path d="M24.5 -1 V-14 H28.5 V2 M11 18 V11 H16 V18"/></svg><span class="mono">Step 4</span><h3 class="d3">Deliver</h3><p class="dim">Mining and refining customers receive the material where they operate.</p></li>
+      </ol>
+      <p style="margin-top:32px"><a class="btn btn-line" href="#mission">How a mission works →</a></p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Why asteroids</p>
+        <h2 class="d2">Critical resources, already in orbit</h2>
+      </div>
+      <div class="grid g4">
+        <div class="stat"><p class="num"><small>Platinum vs best mine ore</small>×<span class="count" data-to="13">13</span></p><p class="dim">in the richest metallic asteroid material<sup><a href="#src">1</a></sup></p></div>
+        <div class="stat"><p class="num"><small>Iridium vs Earth's crust</small><span class="pre">up to</span>×<span class="count" data-to="15000">15,000</span></p><p class="dim">in the richest metallic (M-type) asteroids<sup><a href="#src">2</a></sup></p></div>
+        <div class="stat"><p class="num"><small>Water by mass</small>~<span class="count" data-to="10">10</span>%</p><p class="dim">in carbonaceous (C-type) asteroids<sup><a href="#src">3</a></sup></p></div>
+        <div class="stat"><p class="num"><small>Space economy, 2035</small>$<span class="count" data-to="1.8" data-dec="1">1.8</span>T</p><p class="dim">projected by WEF &amp; McKinsey<sup><a href="#src">4</a></sup></p></div>
+      </div>
+      <div class="card water">
+        <div class="grid" style="gap:12px">
+          <p class="eyebrow">Why water</p>
+          <h3 class="d2" style="font-size:clamp(1.2rem,2.4vw,1.6rem)">Everyone knows why metals are valuable. Here's why water is the most valuable near-term resource.</h3>
+          <p class="dim">Today, almost everything used in space has to be launched from Earth. Water found in space can instead be split into hydrogen and oxygen for rocket propellant, and it supports life and shields people and equipment from radiation. NASA's OSIRIS-REx found water-bearing clay minerals on asteroid Bennu,<sup><a href="#src">9</a></sup> and JAXA's Hayabusa2 confirmed hydrated minerals on Ryugu.<sup><a href="#src">10</a></sup></p>
+        </div>
+        <ul class="ticks">
+          <li>Rocket propellant and refueling depots</li>
+          <li>Life support and oxygen</li>
+          <li>Radiation shielding</li>
+          <li>Satellite servicing</li>
+          <li>Space habitats and agriculture</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Roadmap</p>
+        <h2 class="d2">Four phases to a fleet</h2>
+      </div>
+      <div class="track"><span class="comet" aria-hidden="true"></span>
+        <div class="ms now"><span class="node">1</span><strong>Foundation</strong><p class="mono yr">Year 0 to 1</p><span class="chip now">We are here</span></div>
+        <div class="ms"><span class="node">2</span><strong>Prove it in space</strong><p class="mono yr">Year 1 to 2.5</p></div>
+        <div class="ms"><span class="node">3</span><strong>First retrieval</strong><p class="mono yr">Year 2.5 to 10</p></div>
+        <div class="ms"><span class="node">4</span><strong>Build the fleet</strong><p class="mono yr">Year 10 onward</p></div>
+      </div>
+      <p style="margin-top:32px"><a class="btn btn-line" href="#roadmap">Full roadmap →</a></p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="banner">
+        <div class="bg" aria-hidden="true"></div>
+        <div class="in">
+          <p class="eyebrow">Join us</p>
+          <h2 class="d2">Let's mine the solar system together.</h2>
+          <p class="lead">Investors, customers, partners, and engineers: we'd like to hear from you.</p>
+          <div class="row"><a class="btn btn-solid" href="#contact">Get in touch</a><a class="btn btn-line" href="https://medium.com/astra-retrieval/newsletters/astra-retrieval-updates" target="_blank" rel="noopener">Subscribe to updates <svg viewBox="0 0 16 16"><path d="M6 3h7v7M13 3 4 12"/></svg></a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</section>
+
+<!-- ============================== PLATFORM ============================== -->
+<section class="view" data-view="platform">
+  <div class="page-head"><div class="wrap">
+    <p class="mono">Platform <b>· 3 products in development</b></p>
+    <h1 class="d1">Everything a retrieval mission needs</h1>
+    <p class="lead">We build the whole chain ourselves: the spacecraft that captures the asteroid, the software that flies it, and the ground network that keeps it in contact. Two of the three are open to other operators.</p>
+  </div></div>
+
+  <section class="sec" id="spacecraft"><div class="wrap product">
+    <div class="grid" style="gap:16px">
+      <span class="chip dev">In development</span>
+      <p class="eyebrow">Hardware</p>
+      <h2 class="d2">Retrieval spacecraft</h2>
+      <p class="lead">We build our spacecraft around flight-proven commercial components, and design in house everything else needed to complete a deep-space asteroid capture mission.</p>
+      <ul class="ticks">
+        <li>Flight-proven commercial bus, ion propulsion, and attitude control</li>
+        <li>In-house designs for what a capture mission needs, including the capture bag that envelops and cinches around the asteroid</li>
+        <li>Tows the captured asteroid to cislunar space</li>
+      </ul>
+      <p class="uses"><span>Flies our retrieval missions</span></p>
+    </div>
+    <div class="art"><svg viewBox="0 0 400 300" aria-hidden="true">
+      <rect x="92" y="136" width="30" height="28"/><rect x="50" y="141" width="36" height="18"/><rect x="128" y="141" width="36" height="18"/>
+      <path d="M86 150 H92 M122 150 H128 M62 141 V159 M74 141 V159 M140 141 V159 M152 141 V159"/>
+      <path d="M164 150 C 210 80 330 86 334 150 C 330 214 210 220 164 150"/>
+      <path d="M164 150 C 215 120 300 120 334 150 M164 150 C 215 180 300 180 334 150" stroke="#3a4566"/>
+      <use class="use-glyph" href="#glyph" x="242" y="118" width="60" height="64.6"/>
+      <text x="50" y="250">CAPTURE BAG · DEPLOYED</text>
+    </svg></div>
+  </div></section>
+
+  <section class="sec" id="software"><div class="wrap product">
+    <div class="grid" style="gap:16px">
+      <span class="chip dev">In development</span>
+      <p class="eyebrow">Software</p>
+      <h2 class="d2">Autonomous deep-space flight</h2>
+      <p class="lead">Far from Earth, every command arrives minutes late. Our software lets a mission be simulated in full before launch, then flies the trajectory, rendezvous, and capture on board, adapting in real time as conditions change in flight.</p>
+      <ul class="ticks">
+        <li>Full mission simulation before launch</li>
+        <li>On-board navigation and guidance that adapts in real time</li>
+        <li>Autonomous rendezvous with a tumbling target</li>
+        <li>Mission operations with minimal ground intervention</li>
+      </ul>
+      <p class="uses"><span>Flies our spacecraft</span><span class="sell">Licensed to other operators</span></p>
+    </div>
+    <div class="art"><svg viewBox="0 0 400 300" aria-hidden="true">
+      <circle cx="80" cy="220" r="28"/><text x="58" y="270">EARTH</text>
+      <path d="M106 208 C 180 180 230 80 330 76"/>
+      <path d="M106 208 C 210 240 300 160 332 86" stroke="#3a4566" stroke-dasharray="3 6"/>
+      <use class="use-glyph" href="#glyph" x="322" y="58" width="26" height="28"/>
+      <circle cx="226" cy="132" r="5" fill="var(--mint)" stroke="none"/>
+      <text x="236" y="150">REPLAN · ON BOARD</text>
+    </svg></div>
+  </div></section>
+
+  <section class="sec" id="network"><div class="wrap product">
+    <div class="grid" style="gap:16px">
+      <span class="chip dev">In development</span>
+      <p class="eyebrow">Infrastructure</p>
+      <h2 class="d2">Private deep space network</h2>
+      <p class="lead">Ground stations spread around the globe, so spacecraft far beyond Earth orbit always have a station in view. We are also building the network to be capable of radio astronomy, with observing time available to universities and observatories.</p>
+      <ul class="ticks">
+        <li>Tracking, telemetry, and command for deep-space craft</li>
+        <li>Capacity for our fleet as it grows</li>
+        <li>Radio astronomy observing time for universities and observatories</li>
+        <li>Network time offered as a service</li>
+      </ul>
+      <p class="uses"><span>Supports our missions</span><span class="sell">Open to customers</span></p>
+    </div>
+    <div class="art"><svg viewBox="0 0 400 300" aria-hidden="true">
+      <circle cx="130" cy="170" r="70"/>
+      <path d="M130 100 V86 M68 200 L54 208 M192 200 L206 208"/>
+      <circle cx="130" cy="82" r="5"/><circle cx="50" cy="210" r="5"/><circle cx="210" cy="210" r="5"/>
+      <path class="sig" d="M134 80 L340 54 M214 206 L342 62"/>
+      <rect x="334" y="44" width="18" height="18"/>
+      <text x="384" y="250" text-anchor="end">ALWAYS A STATION IN VIEW</text>
+    </svg></div>
+  </div></section>
+
+  <section class="sec"><div class="wrap">
+    <div class="card cta-card">
+      <div class="grid" style="gap:8px"><h2 class="d3">Operating a spacecraft beyond Earth orbit?</h2><p class="dim">Tell us about your mission. We're talking to early users of the flight software and network.</p></div>
+      <a class="btn btn-solid" href="#contact">Register interest</a>
+    </div>
+  </div></section>
+</section>
+
+<!-- ============================== MISSION ============================== -->
+<section class="view" data-view="mission">
+  <div class="page-head"><div class="wrap">
+    <p class="mono">Mission <b>· Asteroid capture &amp; cislunar return</b></p>
+    <h1 class="d1">Own the logistics, not the mining</h1>
+    <p class="lead">We focus on capture and transport. Miners and refiners get water-rich and metal-rich asteroids delivered to cislunar space, without flying years into deep space to find them. This reduces capital expenditure and risk for miners, since they don't have to depend on a single mission.</p>
+  </div></div>
+
+  <section class="sec"><div class="wrap">
+    <div class="sec-head"><p class="eyebrow">How a mission works</p><h2 class="d2">Four steps</h2></div>
+    <div class="grid g4">
+      <div class="card"><span class="mono">Step 1</span><h3 class="d3">Locate</h3><p class="dim">Spectroscopy surveys identify high-value near-Earth asteroids with favourable orbits.</p></div>
+      <div class="card"><span class="mono">Step 2</span><h3 class="d3">Capture</h3><p class="dim">The spacecraft rendezvous with the asteroid and envelops it in the capture bag.</p></div>
+      <div class="card"><span class="mono">Step 3</span><h3 class="d3">Transport</h3><p class="dim">Ion propulsion and autonomous navigation carry it to cislunar space.</p></div>
+      <div class="card"><span class="mono">Step 4</span><h3 class="d3">Deliver</h3><p class="dim">Customers mine and refine. We own the logistics, not the processing.</p></div>
+    </div>
+  </div></section>
+
+  <section class="sec"><div class="wrap">
+    <div class="sec-head"><p class="eyebrow">Targets</p><h2 class="d2">Which asteroids we're after</h2><p class="lead">More than 40,000 near-Earth asteroids are catalogued.<sup><a href="#src" style="color:var(--mint);text-decoration:none;font-size:.7rem">5</a></sup> Two classes hold what the space economy needs most.</p></div>
+    <div class="grid g2">
+      <div class="card type"><span class="mono">Carbonaceous · most common</span><h3>C-type</h3><p class="dim">Dark, ancient bodies of clay, silicates, and carbon compounds. Rich in water, the most valuable near-term space resource: propellant, life support, and radiation shielding.</p><div class="tags"><span>Water</span><span>Carbon compounds</span><span>Clay silicates</span></div></div>
+      <div class="card type"><span class="mono">Metallic</span><h3>M-type</h3><p class="dim">Thought to be exposed iron-nickel cores of early protoplanets. The primary target for platinum-group metals and rare earth metals.</p><div class="tags"><span>Iron-nickel</span><span>Platinum-group metals</span><span>Rare earths</span></div></div>
+    </div>
+  </div></section>
+
+  <section class="sec"><div class="wrap grid g2" style="gap:clamp(28px,5vw,64px);align-items:start">
+    <div class="grid" style="gap:14px"><p class="eyebrow">Why it matters</p><h2 class="d2">Concentrated supply on Earth</h2><p class="lead">Platinum-group metals and rare earths power EVs, fuel cells, electronics, and defence systems. Today their supply depends on a few countries.</p></div>
+    <div class="card supply" style="gap:18px">
+      <div class="bar-row" style="--k: 0"><span>South Africa</span><span class="b"><i style="width:70%"></i></span><span class="p">~<span class="count" data-to="70">70</span>%</span></div>
+      <p class="dim" style="font-size:.82rem;margin-top:-10px">of platinum mine production<sup><a href="#src" style="color:var(--mint);text-decoration:none">6</a></sup></p>
+      <div class="bar-row" style="--k: 1"><span>China</span><span class="b"><i style="width:69%"></i></span><span class="p"><span class="count" data-to="69">69</span>%</span></div>
+      <p class="dim" style="font-size:.82rem;margin-top:-10px">of rare earth mine production<sup><a href="#src" style="color:var(--mint);text-decoration:none">7</a></sup></p>
+      <div class="bar-row" style="--k: 2"><span>China</span><span class="b"><i style="width:91%"></i></span><span class="p">~<span class="count" data-to="91">91</span>%</span></div>
+      <p class="dim" style="font-size:.82rem;margin-top:-10px">of rare earth refining<sup><a href="#src" style="color:var(--mint);text-decoration:none">8</a></sup></p>
+    </div>
+  </div></section>
+
+
+  <section class="sec" id="src"><div class="wrap grid" style="gap:14px">
+    <p class="eyebrow">Sources</p>
+    <ol class="sources">
+      <li>B. R. Blair, <a href="https://nss.org/wp-content/uploads/2023/05/Role-Of-Near-Earth-Asteroids-In-Long-Term-Platinum-Supply.pdf" target="_blank" rel="noopener">The Role of Near-Earth Asteroids in Long-Term Platinum Supply</a></li>
+      <li>M. Ragheb, <a href="https://mragheb.com/NPRE%20402%20ME%20405%20Nuclear%20Power%20Engineering/Nuclear%20Asteroid%20Mining.pdf" target="_blank" rel="noopener">Nuclear Asteroid Mining</a>, University of Illinois course notes: up to ~60 ppm iridium in M-type asteroids vs ~0.001 ppm in Earth's crust. See also M. Elvis, <a href="https://arxiv.org/abs/1312.4450" target="_blank" rel="noopener">How Many Ore-Bearing Asteroids?</a></li>
+      <li>M. R. Lee et al., <a href="https://onlinelibrary.wiley.com/doi/10.1111/maps.14099" target="_blank" rel="noopener">The water content of CM carbonaceous chondrite falls and finds</a>, 2023</li>
+      <li>WEF &amp; McKinsey, <a href="https://www.weforum.org/publications/space-the-1-8-trillion-opportunity-for-global-economic-growth/" target="_blank" rel="noopener">Space: The $1.8 Trillion Opportunity</a>, 2024</li>
+      <li>NASA JPL CNEOS, <a href="https://cneos.jpl.nasa.gov/stats/" target="_blank" rel="noopener">Discovery Statistics</a></li>
+      <li>USGS, <a href="https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-platinum-group.pdf" target="_blank" rel="noopener">Mineral Commodity Summaries 2026: Platinum-Group Metals</a></li>
+      <li>USGS, <a href="https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-rare-earths.pdf" target="_blank" rel="noopener">Mineral Commodity Summaries 2026: Rare Earths</a></li>
+      <li>IEA, <a href="https://www.iea.org/reports/rare-earth-elements/executive-summary" target="_blank" rel="noopener">Rare Earth Elements</a></li>
+      <li>NASA, <a href="https://www.nasa.gov/news-release/nasas-bennu-asteroid-sample-contains-carbon-water" target="_blank" rel="noopener">NASA's Bennu Asteroid Sample Contains Carbon, Water</a>, 2023</li>
+      <li>T. Nakamura et al., <a href="https://www.science.org/doi/10.1126/science.abn8671" target="_blank" rel="noopener">Formation and evolution of carbonaceous asteroid Ryugu</a>, Science, 2022</li>
+    </ol>
+  </div></section>
+</section>
+
+<!-- ============================== ROADMAP ============================== -->
+<section class="view" data-view="roadmap">
+  <div class="page-head"><div class="wrap">
+    <p class="mono">Roadmap <b>· Currently in Phase 1</b></p>
+    <h1 class="d1">From foundation to fleet</h1>
+    <p class="lead">Four phases take us from our first designs to a fleet returning one asteroid every month. Each one advances all three products.</p>
+  </div></div>
+  <section class="sec"><div class="wrap grid" style="gap:40px">
+    <div class="track"><span class="comet" aria-hidden="true"></span>
+      <div class="ms now"><span class="node">1</span><strong>Foundation</strong><p class="mono yr">Year 0 to 1</p><span class="chip now">We are here</span></div>
+      <div class="ms"><span class="node">2</span><strong>Prove it in space</strong><p class="mono yr">Year 1 to 2.5</p></div>
+      <div class="ms"><span class="node">3</span><strong>First retrieval</strong><p class="mono yr">Year 2.5 to 10</p></div>
+      <div class="ms"><span class="node">4</span><strong>Build the fleet</strong><p class="mono yr">Year 10 onward</p></div>
+    </div>
+    <div class="grid g4">
+        <div class="card phase-card now"><span class="mono">Phase 1 · Year 0 to 1</span><span class="chip now">We are here</span><h3 class="d3">Foundation</h3><p class="dim">We design 3D models of the spacecraft and simulate its flight profile on our in-house software. Then we build a physical prototype of the asteroid capture mechanism and test it.</p></div>
+        <div class="card phase-card"><span class="mono">Phase 2 · Year 1 to 2.5</span><h3 class="d3">Prove it in space</h3><p class="dim">We launch a prototype of our capture spacecraft into orbit and test its operations in flight.</p></div>
+        <div class="card phase-card"><span class="mono">Phase 3 · Year 2.5 to 10</span><h3 class="d3">First retrieval</h3><p class="dim">Our first capture mission flies out to an asteroid, captures it, and brings it home for our first delivery.</p></div>
+        <div class="card phase-card"><span class="mono">Phase 4 · Year 10 onward</span><h3 class="d3">Build the fleet</h3><p class="dim">We scale up operations, adding spacecraft until we are returning one asteroid every month.</p></div>
+    </div>
+    <div class="grid" style="gap:10px">
+      <div class="grid" style="gap:6px"><p class="eyebrow">By product</p><h2 class="d3">Three products, built together, each earning on its own timeline</h2><p class="dim" style="max-width:68ch">These timelines are our current predictions, not fixed dates. We share them to show how the company builds upon itself: the network and software we develop for our own missions start serving customers early, then carry our capture missions, so each phase grows the capabilities we can offer.</p></div>
+      <div class="lanes"><table>
+        <thead><tr><th>Product</th><th class="now">1 · Foundation <span class="yr">Year 0 to 1</span></th><th>2 · Prove it in space <span class="yr">Year 1 to 2.5</span></th><th>3 · First retrieval <span class="yr">Year 2.5 to 10</span></th><th>4 · Build the fleet <span class="yr">Year 10 onward</span></th></tr></thead>
+        <tbody>
+          <tr><td><strong>Private deep space network</strong><span class="sub">Tracking and communications</span></td><td class="now"><span class="mi"><span class="mm">Month 8</span>Design the network</span><span class="mi"><span class="mm">Month 10</span>Locate and secure a first site</span></td><td class="sell"><span class="rev">Revenue · month 14</span><span class="mi"><span class="mm">Month 14</span>First station online, begin to lease</span><span class="mi"><span class="mm">Month 24</span>Track our test mission</span><span class="mi"><span class="mm">Month 25</span>Grow station count</span></td><td class="sell"><span class="mi"><span class="mm">Month 36</span>Track our first mission</span><span class="earn">Earning</span></td><td class="sell"><span class="earn">Earning</span></td></tr>
+          <tr><td><strong>Autonomous flight software</strong><span class="sub">Deep-space autonomy</span></td><td class="now"><span class="mi"><span class="mm">Month 6</span>In-house flight profile simulation</span><span class="mi"><span class="mm">Month 7</span>Begin build-out of the full software suite</span></td><td class="sell"><span class="mi"><span class="mm">Month 20</span>Flies on our prototype in orbit</span><span class="rev">Revenue · month 24</span><span class="mi"><span class="mm">Month 24</span>Sale of first software license</span><span class="mi"><span class="mm">Month 26</span>Continue to build out the software suite</span></td><td class="sell"><span class="earn">Earning</span></td><td class="sell"><span class="earn">Earning</span></td></tr>
+          <tr><td><strong>Capture spacecraft</strong><span class="sub">Asteroid retrieval</span></td><td class="now"><span class="mi"><span class="mm">Month 4</span>3D models and flight simulations</span><span class="mi"><span class="mm">Month 8</span>Build capture prototype and test</span></td><td><span class="mi"><span class="mm">Month 20</span>Launch orbital test</span></td><td><span class="mi"><span class="mm">Month 36</span>Launch first asteroid capture mission</span><span class="mi"><span class="mm">Year 10</span>Deliver first captured asteroid</span></td><td class="sell"><span class="rev">Revenue · year 10</span><span class="mi"><span class="mm">Year 10, month 1</span>Begin scaling up asteroid retrieval missions</span><span class="earn">Earning</span></td></tr>
+        </tbody>
+      </table></div>
+      <p class="legend"><span><i class="lg-build"></i>Building</span><span><i class="lg-earn"></i>Earning</span><span><i class="lg-rev"></i>Revenue begins</span></p>
+    </div>
+  </div></section>
+</section>
+
+<!-- ============================== COMPANY ============================== -->
+<section class="view" data-view="company">
+  <div class="page-head"><div class="wrap">
+    <p class="mono">Company <b>· About us</b></p>
+    <h1 class="d1">Protecting our planet. Expanding what's possible.</h1>
+    <p class="lead">A sustainable supply of critical minerals for Earth and for the growing space economy, without the environmental damage of mining on Earth.</p>
+  </div></div>
+  <section class="sec"><div class="wrap grid g2">
+    <div class="card"><p class="eyebrow">Protect Earth</p><p>Reduce the need for environmentally destructive mining and secure critical minerals sustainably.</p></div>
+    <div class="card"><p class="eyebrow">Power the space economy</p><p>Supply materials for lunar and in-space industry, and enable long-term space infrastructure.</p></div>
+  </div></section>
+  <section class="sec"><div class="wrap">
+    <div class="sec-head"><p class="eyebrow">How we build</p><h2 class="d2">Commercial-off-the-shelf first</h2><p class="lead">We use flight-proven components wherever they exist and spend engineering effort only on what's new: the capture bag, the flight software, and the network.</p></div>
+    <div class="grid g4">
+      <div class="card"><h3 class="d3">Lower cost</h3></div><div class="card"><h3 class="d3">Faster development</h3></div><div class="card"><h3 class="d3">Lower risk</h3></div><div class="card"><h3 class="d3">Simpler integration</h3></div>
+    </div>
+  </div></section>
+  <section class="sec"><div class="wrap">
+    <div class="sec-head"><p class="eyebrow">Team</p><h2 class="d2">The people building it</h2></div>
+    <div class="grid g2">
+      <div class="card person"><span class="avatar" aria-hidden="true">SH</span><div class="grid" style="gap:6px"><h3 class="d3">Stephen Hilton</h3><p class="role">Founder &amp; CEO</p><p class="dim">M.S. Aerospace Engineering, University of South Carolina. Novel 3D printing methods, robotic systems, software, and electronics.</p></div></div>
+      <div class="card person"><span class="avatar" aria-hidden="true">JP</span><div class="grid" style="gap:6px"><h3 class="d3">John Paradise</h3><p class="role">Lead Engineer</p><p class="dim">M.S. Engineering Mechanics; B.S. Materials Science &amp; Engineering, Virginia Tech. Composites, robotics, and industrial manufacturing.</p></div></div>
+    </div>
+  </div></section>
+  <section class="sec"><div class="wrap"><div class="card cta-card">
+    <div class="grid" style="gap:8px"><p class="eyebrow">Careers</p><h2 class="d3">Want to work on deep-space autonomy, spacecraft, or ground systems?</h2><p class="dim">We're not hiring formally yet, but we'd like to meet engineers who want to build this.</p></div>
+    <a class="btn btn-line" href="#contact">Introduce yourself</a>
+  </div></div></section>
+</section>
+
+<!-- ============================== CONTACT ============================== -->
+<section class="view" data-view="contact">
+  <div class="page-head"><div class="wrap">
+    <p class="mono">Contact <b>· We reply personally</b></p>
+    <h1 class="d1">Let's talk</h1>
+    <p class="lead">Whether you're an investor, a customer, a partner, or an engineer, email us at the address below. Every message reaches our founder.</p>
+  </div></div>
+  <section class="sec"><div class="wrap grid g3">
+    <div class="card"><p class="eyebrow">Investors</p><h2 class="d3">Request more information</h2><p class="dim">Ask for our deck, learn more about the team and business, and set up a call with our founder and his team.</p></div>
+    <div class="card"><p class="eyebrow">Customers &amp; partners</p><h2 class="d3">Software, network, or deliveries</h2><p class="dim">Operators interested in the flight software or network time, and future buyers of asteroid material.</p></div>
+    <div class="card"><p class="eyebrow">Engineers</p><h2 class="d3">Help build it</h2><p class="dim">Deep-space autonomy, spacecraft hardware, and ground systems.</p></div>
+  </div>
+  <div class="wrap" style="margin-top:26px">
+    <div class="email"><span class="mono">Email</span><code id="addr">Stephen.Hilton@AstraRetrieval.com</code><button class="copy" id="copy" type="button">Copy</button></div>
+    <p class="dim" id="copied" role="status" style="font-size:.85rem;margin-top:8px;min-height:1.4em"></p>
+  </div></section>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="grid" style="gap:12px;align-content:start"><img src="assets/img/logo-wordmark.png" alt="Astra Retrieval" width="170" height="21" style="height:21px;width:auto"><p class="dim" style="font-size:.9rem;max-width:34ch">Asteroid capture and cislunar return. The logistics layer for the space economy.</p></div>
+    <div><h4>Platform</h4><ul><li><a href="#spacecraft">Spacecraft</a></li><li><a href="#software">Flight software</a></li><li><a href="#network">Deep space network</a></li></ul></div>
+    <div><h4>Company</h4><ul><li><a href="#mission">Mission</a></li><li><a href="#roadmap">Roadmap</a></li><li><a href="#company">Team</a></li></ul></div>
+    <div><h4>Follow</h4><ul><li><a href="https://medium.com/astra-retrieval/newsletters/astra-retrieval-updates" target="_blank" rel="noopener">Newsletter</a></li><li><a href="#contact">Contact</a></li></ul></div>
+    <p class="fine"><span>© 2026 Astra Retrieval</span></p>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
 </body>
 </html>
